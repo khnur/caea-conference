@@ -1,0 +1,144 @@
+import React, { useState } from 'react';
+import { useSessionizeData, groupSessionsByDate, formatSessionTime, findRoomForSession, findSpeakersForSession } from '../services/sessionizeService';
+
+const Schedule: React.FC = () => {
+  const { data, loading, error } = useSessionizeData();
+  const [activeDay, setActiveDay] = useState<string | null>(null);
+
+  // Handle loading and error states
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-16">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 p-4 rounded-md">
+        <h3 className="text-lg font-medium text-red-800">Error loading schedule</h3>
+        <p className="mt-2 text-sm text-red-700">
+          Unable to load the conference schedule. Please try again later.
+        </p>
+      </div>
+    );
+  }
+
+  if (!data || !data.sessions || data.sessions.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-xl font-semibold text-gray-900">No schedule available</h2>
+        <p className="mt-2 text-gray-600">The conference schedule has not been published yet. Please check back later.</p>
+      </div>
+    );
+  }
+
+  // Group sessions by date
+  const groupedSessions = groupSessionsByDate(data.sessions);
+  const days = Object.keys(groupedSessions);
+  
+  // Initialize active day if not set
+  if (!activeDay && days.length > 0) {
+    setActiveDay(days[0]);
+  }
+
+  const currentDaySessions = activeDay && groupedSessions[activeDay] ? groupedSessions[activeDay] : [];
+
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          Conference Schedule
+        </h1>
+        <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
+          Detailed schedule of sessions and events
+        </p>
+      </div>
+
+      {/* Day selector tabs */}
+      <div className="border-b border-gray-200">
+        <nav className="-mb-px flex space-x-8 justify-center overflow-x-auto" aria-label="Tabs">
+          {days.map((day) => (
+            <button
+              key={day}
+              onClick={() => setActiveDay(day)}
+              className={`
+                whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
+                ${activeDay === day
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+              `}
+            >
+              {day}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Schedule for selected day */}
+      {activeDay && (
+        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+          <div className="bg-primary px-4 py-5 sm:px-6">
+            <h2 className="text-xl leading-6 font-medium text-white">
+              {activeDay}
+            </h2>
+          </div>
+          <ul className="divide-y divide-gray-200">
+            {currentDaySessions.map((session) => {
+              const room = data.rooms ? findRoomForSession(session, data.rooms) : null;
+              const speakers = data.speakers ? findSpeakersForSession(session, data.speakers) : [];
+              
+              const startTime = formatSessionTime(session.startsAt);
+              const endTime = formatSessionTime(session.endsAt);
+              
+              return (
+                <li key={session.id}>
+                  <div className="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex min-w-0 flex-1 items-center">
+                        <div className="min-w-0 flex-1 px-4">
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm font-medium text-primary truncate">
+                              {startTime} - {endTime}
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              {room ? room.name : 'Room TBA'}
+                            </p>
+                          </div>
+                          <p className="mt-2 text-md font-medium text-gray-900">{session.title}</p>
+                          {speakers.length > 0 && (
+                            <p className="mt-1 text-sm text-gray-500">
+                              Speakers: {speakers.map(speaker => speaker.fullName).join(', ')}
+                            </p>
+                          )}
+                          {session.description && (
+                            <p className="mt-1 text-sm text-gray-500">{session.description}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      <div className="bg-gray-50 rounded-lg p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Schedule Updates</h3>
+        <p className="text-gray-600 mb-4">
+          The conference schedule is subject to change. Please check back regularly for updates.
+        </p>
+        <button
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+          Download Schedule
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Schedule; 
