@@ -48,40 +48,56 @@ const Speakers: React.FC = () => {
     !keynoteSpeakers.some(keynote => keynote.id === speaker.id)
   );
 
-  const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker }) => (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="aspect-w-3 aspect-h-2">
-        <img 
-          className="h-48 w-full object-cover" 
-          src={speaker.profilePicture || "https://via.placeholder.com/300"} 
-          alt={speaker.fullName} 
-        />
-      </div>
-      <div className="p-6">
-        <h3 className="text-lg font-bold text-gray-900">{speaker.fullName}</h3>
-        <p className="text-sm text-primary">{speaker.tagLine || "Speaker"}</p>
-        <div className="mt-3">
-          <p className="text-sm text-gray-700 line-clamp-3">{speaker.bio}</p>
+  const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker }) => {
+    // Function to get initials from full name
+    const getInitials = (name: string) => {
+      return name
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .toUpperCase();
+    };
+
+    return (
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="aspect-w-3 aspect-h-2">
+          {speaker.profilePicture ? (
+            <img 
+              className="h-48 w-full object-cover" 
+              src={speaker.profilePicture} 
+              alt={speaker.fullName} 
+            />
+          ) : (
+            <div className="h-48 w-full bg-primary flex items-center justify-center">
+              <span className="text-4xl font-bold text-white">
+                {getInitials(speaker.fullName)}
+              </span>
+            </div>
+          )}
         </div>
-        {speaker.sessions && speaker.sessions.length > 0 && (
-          <div className="mt-4">
-            <p className="text-xs text-gray-500 uppercase font-semibold">Sessions</p>
-            <p className="text-sm text-gray-700">{speaker.sessions.length} {speaker.sessions.length === 1 ? 'session' : 'sessions'}</p>
+        <div className="p-6">
+          <h3 className="text-lg font-bold text-gray-900">{speaker.fullName}</h3>
+          <p className="text-sm text-primary">{speaker.tagLine || "Speaker"}</p>
+          <div className="mt-3">
+            <p className="text-sm text-gray-700 line-clamp-3">{speaker.bio}</p>
           </div>
-        )}
+          {speaker.sessions && speaker.sessions.length > 0 && (
+            <div className="mt-4">
+              <p className="text-xs text-gray-500 uppercase font-semibold">Sessions</p>
+              <p className="text-sm text-gray-700">{speaker.sessions.length} {speaker.sessions.length === 1 ? 'session' : 'sessions'}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="space-y-12">
       <div className="text-center">
         <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Conference Speakers
+          Keynote Speakers
         </h1>
-        <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-          Leading experts from around the world
-        </p>
       </div>
 
       {/* Keynote Speakers */}

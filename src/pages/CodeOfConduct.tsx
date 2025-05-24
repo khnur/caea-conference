@@ -15,7 +15,7 @@ const CodeOfConduct: React.FC = () => {
       <div className="prose prose-lg max-w-4xl mx-auto">
         <h2>Our Pledge</h2>
         <p>
-          In the interest of fostering an open and welcoming environment, we as organizers, speakers, participants, and sponsors of the CAEA Conference pledge to make participation in our conference a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+          In the interest of fostering an open and welcoming environment, we as organizers, speakers, participants, and sponsors of the CAE Conference pledge to make participation in our conference a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
         </p>
 
         <h2>Expected Behavior</h2>
@@ -47,7 +47,7 @@ const CodeOfConduct: React.FC = () => {
 
         <h2>Academic Integrity</h2>
         <p>
-          The CAEA Conference is committed to the highest standards of academic integrity. All research presented at the conference should adhere to ethical research practices, including:
+          The CAE Conference is committed to the highest standards of academic integrity. All research presented at the conference should adhere to ethical research practices, including:
         </p>
         <ul>
           <li>Properly acknowledging the work of others through appropriate citations.</li>
@@ -68,7 +68,7 @@ const CodeOfConduct: React.FC = () => {
           <li>A verbal or written warning.</li>
           <li>Expulsion from the conference without refund.</li>
           <li>Reporting to appropriate authorities if necessary.</li>
-          <li>Barring from future CAEA events.</li>
+          <li>Barring from future CAE events.</li>
         </ul>
 
         <h2>Reporting Process</h2>
@@ -80,7 +80,7 @@ const CodeOfConduct: React.FC = () => {
         </p>
         <ul>
           <li>In-person: Visit the registration desk and ask to speak with the Conference Chair or a member of the Ethics Committee.</li>
-          <li>Email: Send a report to conduct@caeaconference.org.</li>
+          <li>Email: Send a report to conduct@caeconference.org.</li>
           <li>Phone: Call the dedicated ethics hotline at +7 (7172) 123-4599.</li>
         </ul>
         <p>
@@ -98,7 +98,7 @@ const CodeOfConduct: React.FC = () => {
         </p>
         <ul>
           <li>Dr. Gulnara Abdullayeva, Ethics Committee Chair</li>
-          <li>Email: conduct@caeaconference.org</li>
+          <li>Email: conduct@caeconference.org</li>
           <li>Phone: +7 (7172) 123-4599</li>
         </ul>
 

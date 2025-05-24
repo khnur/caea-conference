@@ -1,6 +1,6 @@
-# CAEA Conference Website
+# CAE Conference Website
 
-A modern, responsive conference website for the Central Asian Economics Association (CAEA) conference hosted by Nazarbayev University. Built with React, TypeScript, and TailwindCSS.
+A modern, responsive conference website for the Central Asian Economics (CAE) conference hosted by Nazarbayev University. Built with React, TypeScript, and TailwindCSS.
 
 ## Features
 
@@ -35,8 +35,8 @@ A modern, responsive conference website for the Central Asian Economics Associat
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/caea-conference.git
-cd caea-conference
+git clone https://github.com/your-username/cae-conference.git
+cd cae-conference
 ```
 
 2. Install dependencies:
@@ -58,7 +58,7 @@ yarn start
 ## Project Structure
 
 ```
-caea-conference/
+cae-conference/
 ├── public/             # Public files (favicon, index.html, etc.)
 ├── src/                # Source files
 │   ├── assets/         # Images and other assets

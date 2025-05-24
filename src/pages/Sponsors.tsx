@@ -145,7 +145,7 @@ const Sponsors: React.FC = () => {
           Sponsors & Partners
         </h1>
         <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-          The organizations making the CAEA Conference possible
+          The organizations making the CAE Conference possible
         </p>
       </div>
 
@@ -247,7 +247,7 @@ const Sponsors: React.FC = () => {
           </p>
           <p className="font-medium">
             Dr. Aliya Nurgaziyeva<br />
-            Email: sponsorship@caeaconference.org<br />
+            Email: sponsorship@caeconference.org<br />
             Phone: +7 (7172) 123-4567
           </p>
         </div>

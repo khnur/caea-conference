@@ -174,7 +174,7 @@ const Register: React.FC = () => {
               // If we couldn't regenerate from form data, fall back to the old method
               // Generate email data based on the restored values
               // Create email subject
-              const emailSubject = `CAEA Conference Registration: ${restoredData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${restoredData.firstName.value} ${restoredData.lastName.value}`;
+              const emailSubject = `CAE Conference Registration: ${restoredData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${restoredData.firstName.value} ${restoredData.lastName.value}`;
               
               // Create email body using the restored values
               let emailBody = `
@@ -701,7 +701,7 @@ Registration Date: ${new Date().toLocaleString()}
       const phone = parsedFormData.phone?.value || 'N/A';
       
       // Create email subject
-      const emailSubject = `CAEA Conference Registration: ${registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${firstName} ${lastName}`;
+      const emailSubject = `CAE Conference Registration: ${registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${firstName} ${lastName}`;
       
       // Create email body
       let emailBody = `Registration Type: ${registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'}\n\n`;
@@ -1127,7 +1127,7 @@ Registration Date: ${new Date().toLocaleString()}
       
       // Generate email data right away when moving to instructions screen
       // Create email subject
-      const emailSubject = `CAEA Conference Registration: ${formData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${inputRefs.current.firstName?.value || ''} ${inputRefs.current.lastName?.value || ''}`;
+      const emailSubject = `CAE Conference Registration: ${formData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${inputRefs.current.firstName?.value || ''} ${inputRefs.current.lastName?.value || ''}`;
       
       // Create email body
       let emailBody = `
@@ -1254,7 +1254,7 @@ Registration Date: ${new Date().toLocaleString()}
                   </div>
                   <h3 className="mt-4 text-2xl font-medium text-gray-900">Registration Complete!</h3>
                   <p className="mt-3 text-lg text-gray-600">
-                    Thank you for registering for the CAEA Conference 2023. We'll be in touch soon!
+                    Thank you for registering for the CAE Conference 2023. We'll be in touch soon!
                   </p>
                   <div className="mt-8">
                     <button
@@ -1411,7 +1411,7 @@ Registration Date: ${new Date().toLocaleString()}
                             const phone = formData.phone.value || 'N/A';
                             
                             // Regenerate email subject
-                            const emailSubject = `CAEA Conference Registration: ${formData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${firstName} ${lastName}`;
+                            const emailSubject = `CAE Conference Registration: ${formData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'} - ${firstName} ${lastName}`;
                             
                             // Regenerate email body
                             let emailBody = `Registration Type: ${formData.registrationType === REGISTER_SPEAKER ? 'Speaker' : 'Participant'}\n\n`;

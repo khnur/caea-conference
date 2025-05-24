@@ -7,8 +7,6 @@ const AboutUs = React.lazy(() => import('./pages/AboutUs'));
 const Schedule = React.lazy(() => import('./pages/Schedule'));
 const Speakers = React.lazy(() => import('./pages/Speakers'));
 const Location = React.lazy(() => import('./pages/Location'));
-const Sponsors = React.lazy(() => import('./pages/Sponsors'));
-const CodeOfConduct = React.lazy(() => import('./pages/CodeOfConduct'));
 const Register = React.lazy(() => import('./pages/Register'));
 
 function App() {
@@ -28,7 +26,7 @@ function App() {
               <div className="flex">
                 <div className="flex-shrink-0 flex items-center">
                   <Link to="/" className="text-2xl font-bold text-primary">
-                    CAEA
+                    CAE Conference
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -56,18 +54,6 @@ function App() {
                   >
                     Location
                   </Link>
-                  <Link
-                    to="/sponsors"
-                    className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Sponsors & Partners
-                  </Link>
-                  <Link
-                    to="/code-of-conduct"
-                    className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Code of Conduct
-                  </Link>
                 </div>
               </div>
               <div className="flex items-center">
@@ -75,7 +61,7 @@ function App() {
                   to="/register"
                   className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
                 >
-                  Register Now
+                  Register
                 </Link>
                 <div className="-mr-2 ml-4 flex items-center sm:hidden">
                   <button
@@ -144,25 +130,11 @@ function App() {
                 Location
               </Link>
               <Link
-                to="/sponsors"
-                className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary hover:text-primary"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sponsors & Partners
-              </Link>
-              <Link
-                to="/code-of-conduct"
-                className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary hover:text-primary"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Code of Conduct
-              </Link>
-              <Link
                 to="/register"
                 className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Register Now
+                Register
               </Link>
             </div>
           </div>
@@ -177,8 +149,6 @@ function App() {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/speakers" element={<Speakers />} />
               <Route path="/location" element={<Location />} />
-              <Route path="/sponsors" element={<Sponsors />} />
-              <Route path="/code-of-conduct" element={<CodeOfConduct />} />
               <Route path="/register" element={<Register />} />
             </Routes>
           </React.Suspense>
@@ -189,7 +159,7 @@ function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
-                <h3 className="text-lg font-bold mb-4">CAEA Conference</h3>
+                <h3 className="text-lg font-bold mb-4">CAE Conference</h3>
                 <p className="text-sm">
                   Central Asian Economics Association Annual Conference hosted by Nazarbayev University
                 </p>
@@ -197,27 +167,13 @@ function App() {
               <div>
                 <h3 className="text-lg font-bold mb-4">Contact</h3>
                 <p className="text-sm">
-                  Email: info@caeaconference.org<br />
+                  Email: info@caeconference.org<br />
                   Phone: +7 (7172) 123-4567
                 </p>
               </div>
-              <div>
-                <h3 className="text-lg font-bold mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="https://twitter.com" className="text-white hover:text-accent">
-                    Twitter
-                  </a>
-                  <a href="https://facebook.com" className="text-white hover:text-accent">
-                    Facebook
-                  </a>
-                  <a href="https://linkedin.com" className="text-white hover:text-accent">
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
             </div>
             <div className="mt-8 pt-8 border-t border-secondary text-center">
-              <p className="text-sm">&copy; {new Date().getFullYear()} CAEA Conference. All rights reserved.</p>
+              <p className="text-sm">&copy; {new Date().getFullYear()} CAE Conference. All rights reserved.</p>
             </div>
           </div>
         </footer>

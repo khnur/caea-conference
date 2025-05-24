@@ -29,35 +29,8 @@ const Home: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
             <h1 className="text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
-              Central Asian Economics Association Conference 2023
+              Central Asian Economics Conference 2025
             </h1>
-            <p className="mt-6 text-xl text-white max-w-3xl">
-              Join us for the annual CAEA conference at Nazarbayev University,
-              bringing together the brightest minds in economics from Central Asia and beyond.
-            </p>
-            <div className="mt-10 max-w-sm">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold text-gray-900">Event Details</h2>
-                <ul className="mt-4 space-y-2">
-                  <li className="flex items-center">
-                    <span className="font-medium text-gray-900">Date:</span>
-                    <span className="ml-2 text-gray-700">September 15-17, 2023</span>
-                  </li>
-                  <li className="flex items-center">
-                    <span className="font-medium text-gray-900">Location:</span>
-                    <span className="ml-2 text-gray-700">Nazarbayev University, Astana, Kazakhstan</span>
-                  </li>
-                </ul>
-                <div className="mt-6">
-                  <Link
-                    to="/register"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
-                  >
-                    Register Now
-                  </Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -89,11 +62,8 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Featured Speakers
+              Keynote Speakers
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
-              Leading experts in economics and policy
-            </p>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {loading ? (
@@ -141,7 +111,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-              Join Us at CAEA Conference 2023
+              Join Us at CAE Conference 2025
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-xl text-white opacity-90">
               Register today to secure your spot at this premier event
