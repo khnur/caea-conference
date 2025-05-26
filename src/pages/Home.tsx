@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // Import the local image
-import universityImage from '../assets/images/nazarbayev_university.png';
+import astanaImage from '../assets/images/Photo-of-Astana.jpg';
 // Import the Sessionize service
 import { useSessionizeData } from '../services/sessionizeService';
 
@@ -11,61 +11,115 @@ const Home: React.FC = () => {
   // Select up to 3 speakers to feature (if API data is available)
   const featuredSpeakers = data && data.speakers ? data.speakers.slice(0, 3) : [];
 
+  // Function to get initials from full name
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  };
+
   return (
-    <div className="space-y-12">
+    <div>
       {/* Hero Section */}
-      <section className="relative py-16 rounded-lg overflow-hidden" style={{minHeight: "600px"}}>
+      <section className="relative overflow-hidden w-screen h-screen -ml-[calc((100vw-100%)/2)]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src={universityImage}
-            alt="Nazarbayev University Campus" 
+            src={astanaImage}
+            alt="Astana Cityscape with Baiterek Tower" 
             className="w-full h-full object-cover"
           />
-          {/* Dark overlay to make text readable */}
-          <div className="absolute inset-0 bg-primary opacity-60"></div>
+          {/* Enhanced gradient overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/80"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative">
-            <h1 className="text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
-              Central Asian Economics Conference 2025
-            </h1>
+        <div className="relative z-10 h-full flex items-center justify-center px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            {/* Main Title with enhanced typography */}
+            <div className="mb-12 animate-fade-in-up">
+              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight mb-6">
+                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                  Central Asian Economics Conference 
+                </span>
+                <span className="text-accent font-black tracking-wider ml-2 sm:ml-4">
+                  2025
+                </span>
+              </h1>
+            </div>
+
+            {/* Event Details in Cards */}
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-8 animate-fade-in-up animation-delay-300">
+              {/* Date Card */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-accent/20 rounded-full p-3">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-blue-200 text-sm font-medium uppercase tracking-wide">Date</p>
+                    <p className="text-white text-lg font-bold">August 29–31, 2025</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location Card */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-xl">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-accent/20 rounded-full p-3">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-blue-200 text-sm font-medium uppercase tracking-wide">Venue</p>
+                    <p className="text-white text-lg font-bold">Nazarbayev University</p>
+                    <p className="text-blue-100 text-sm">Astana, Kazakhstan</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Floating elements for visual enhancement */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-accent/20 rounded-full animate-float"></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-white/10 rounded-full animate-float animation-delay-1000"></div>
+        <div className="absolute bottom-32 left-20 w-12 h-12 bg-accent/30 rounded-full animate-float animation-delay-2000"></div>
       </section>
 
       {/* About Conference Section */}
-      <section>
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl mb-12">
               About the Conference
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
-              Fostering economic research and collaboration in Central Asia
-            </p>
           </div>
-          <div className="mt-10">
-            <p className="text-lg text-gray-700">
-              The Central Asian Economics Association Conference is the premier gathering for economists, policymakers, and researchers focused on Central Asian economic development and policy. Hosted by Nazarbayev University, this year's conference will explore themes of sustainable economic growth, regional integration, and post-pandemic recovery.
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg text-gray-700 leading-relaxed">
+              The <span className="font-bold">Central Asian Economics Conference 2025</span> aims to bring together economists connected to the Central Asian region, whether by origin, research interest, or professional engagement.
             </p>
-            <p className="mt-4 text-lg text-gray-700">
-              Join us for three days of keynote speeches, panel discussions, research presentations, and networking opportunities with leading experts from across the region and around the world.
+            <p className="mt-8 text-lg text-gray-700 leading-relaxed">
+              Hosted by Nazarbayev University from <span className="font-bold">August 29 to 31</span>, this event marks the first step toward launching the <span className="font-bold">Central Asian Economics Association (CAEA)</span>, a platform to support research coordination, funding, and future academic initiatives.
             </p>
           </div>
         </div>
       </section>
 
       {/* Featured Speakers */}
-      <section className="bg-gray-50 py-12 rounded-lg">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Keynote Speakers
+              Featured Speakers
             </h2>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {loading ? (
               <div className="col-span-3 flex justify-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -73,57 +127,43 @@ const Home: React.FC = () => {
             ) : featuredSpeakers.length > 0 ? (
               featuredSpeakers.map((speaker) => (
                 <div key={speaker.id} className="flex flex-col items-center">
-                  <div className="h-40 w-40 rounded-full bg-gray-300 overflow-hidden">
-                    <img 
-                      src={speaker.profilePicture || "https://via.placeholder.com/300"} 
-                      alt={speaker.fullName} 
-                      className="h-full w-full object-cover"
-                    />
+                  <div className="h-40 w-40 rounded-full bg-primary overflow-hidden mb-6">
+                    {speaker.profilePicture ? (
+                      <img 
+                        src={speaker.profilePicture} 
+                        alt={speaker.fullName} 
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center">
+                        <span className="text-4xl font-bold text-white">
+                          {getInitials(speaker.fullName)}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div className="mt-4 text-center">
-                    <h3 className="text-lg font-medium text-gray-900">{speaker.fullName}</h3>
-                    <p className="text-sm text-gray-500">{speaker.tagLine || "Speaker"}</p>
-                    <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                  <div className="text-center">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{speaker.fullName}</h3>
+                    <p className="text-sm text-gray-500 mb-3">{speaker.tagLine || "Speaker"}</p>
+                    <p className="text-base text-gray-700 leading-relaxed line-clamp-2">
                       {speaker.bio}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="col-span-3 text-center py-8">
-                <p className="text-gray-500">Speaker information coming soon</p>
+              <div className="col-span-3 text-center py-12">
+                <p className="text-gray-500 text-lg">Speaker information coming soon</p>
               </div>
             )}
           </div>
-          <div className="mt-10 text-center">
+          <div className="mt-16 text-center">
             <Link
               to="/speakers"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
             >
               View All Speakers
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="bg-accent py-12 rounded-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-              Join Us at CAE Conference 2025
-            </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-xl text-white opacity-90">
-              Register today to secure your spot at this premier event
-            </p>
-            <div className="mt-8 flex justify-center">
-              <Link
-                to="/register"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-accent bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
-              >
-                Register Now
-              </Link>
-            </div>
           </div>
         </div>
       </section>

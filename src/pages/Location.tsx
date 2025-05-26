@@ -1,24 +1,16 @@
 import React from 'react';
+import nazarbayevUniversity from '../assets/images/nazarbayev_university.png';
 
 const Location: React.FC = () => {
   return (
-    <div className="space-y-12">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Conference Location
-        </h1>
-        <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-          Join us at Nazarbayev University in Astana, Kazakhstan
-        </p>
-      </div>
+    <div className="pt-8">
 
       {/* Main Venue */}
       <section className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="relative h-80">
-          {/* Replace with actual image of Nazarbayev University */}
-          <div className="absolute inset-0 bg-gray-300">
+        <div className="relative h-[600px]">
+          <div className="absolute inset-0">
             <img
-              src="https://via.placeholder.com/1200x600"
+              src={nazarbayevUniversity}
               alt="Nazarbayev University Campus"
               className="w-full h-full object-cover"
             />

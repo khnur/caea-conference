@@ -2,65 +2,54 @@ import React from 'react';
 
 const AboutUs: React.FC = () => {
   return (
-    <div className="space-y-12">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          About CAE Conference
-        </h1>
-        <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-          The premier economics conference in Central Asia
-        </p>
-      </div>
+    <div className="pt-8">
+      <div className="prose prose-lg mx-auto max-w-4xl">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">About the Conference</h1>
+        
+        <div className="space-y-6">
+          <p className="text-lg text-gray-700 leading-relaxed">
+            The Central Asian Economics Conference 2025, hosted by Nazarbayev University, is designed to bring together economists connected to the Central Asian region-whether by origin, academic interest, or professional ties.
+          </p>
 
-      <div className="prose prose-lg mx-auto">
-        <h2>About the Central Asian Economics Association</h2>
-        <p>
-          The Central Asian Economics Association (CAE) is a professional organization dedicated to promoting economic research, education, and policy analysis in Central Asia. Founded in 2010, CAE brings together economists, researchers, policymakers, and students from Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, Uzbekistan, and beyond.
-        </p>
-        <p>
-          Our mission is to advance economic knowledge, foster collaboration among economists, and contribute to evidence-based policy making in the region. Through conferences, workshops, research projects, and publications, CAE provides a platform for scholars and practitioners to exchange ideas, share research findings, and address economic challenges facing Central Asian countries.
-        </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            This event marks the first step toward establishing the <strong>Central Asian Economics Association (CAEA)</strong>, a platform dedicated to promoting, coordinating, and supporting economic research on the region. The Association will foster collaboration among scholars, encourage knowledge exchange, and support the development of academic initiatives focused on Central Asia, including regional conferences, a job market, and new opportunities for PhD students.
+          </p>
 
-        <h2>About the Annual Conference</h2>
-        <p>
-          The CAE Annual Conference is our flagship event, bringing together hundreds of participants from across Central Asia and around the world. The conference features keynote speeches by renowned economists, panel discussions on pressing economic issues, and parallel sessions for research presentations.
-        </p>
-        <p>
-          Each year, the conference is hosted by a leading university in the region. We are proud to announce that the 2023 CAE Conference will be held at Nazarbayev University in Astana, Kazakhstan. The theme of this year's conference is "Economic Resilience and Sustainable Development in Central Asia," focusing on strategies for building more resilient economies in the face of global challenges.
-        </p>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            The conference will take place from the afternoon of <strong>August 29</strong> through the morning of <strong>August 31</strong>, and will feature research presentations, networking opportunities, and planning discussions for the formal launch of the Association.
+          </p>
 
-        <h2>Conference Objectives</h2>
-        <ul>
-          <li>To provide a platform for sharing cutting-edge research on economic issues relevant to Central Asia</li>
-          <li>To foster networking and collaboration among economists, policymakers, and students from the region and beyond</li>
-          <li>To promote evidence-based policy making through dialogue between researchers and policymakers</li>
-          <li>To support early-career economists and student researchers through specialized sessions and mentoring opportunities</li>
-          <li>To strengthen the community of economists working on Central Asian economic development</li>
-        </ul>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            We hope you will join us in this important initiative to strengthen the regional economics research community.
+          </p>
 
-        <h2>Past Conferences</h2>
-        <p>
-          CAE has successfully organized annual conferences since 2011, with each event focusing on a theme of critical importance to the region:
-        </p>
-        <ul>
-          <li>2022: "Digital Transformation and Economic Growth" (Tashkent, Uzbekistan)</li>
-          <li>2021: "Post-Pandemic Recovery in Central Asia" (Virtual Conference)</li>
-          <li>2020: "Climate Change and Economic Policy" (Virtual Conference)</li>
-          <li>2019: "Regional Integration and Trade" (Bishkek, Kyrgyzstan)</li>
-          <li>2018: "Financial Development and Inclusion" (Almaty, Kazakhstan)</li>
-        </ul>
-
-        <h2>Organizing Committee</h2>
-        <p>
-          The 2023 CAE Conference is organized by a dedicated committee of faculty members from Nazarbayev University's School of Sciences and Humanities, in collaboration with the CAE Executive Board.
-        </p>
-        <ul>
-          <li>Dr. Aigerim Kazakhova, Conference Chair (Nazarbayev University)</li>
-          <li>Dr. Marat Ibragimov, Program Committee Chair (Nazarbayev University)</li>
-          <li>Dr. Gulnara Abdullayeva, Local Organizing Committee Chair (Nazarbayev University)</li>
-          <li>Prof. Timur Beketov, CAE President (Kazakh-British Technical University)</li>
-          <li>Dr. Aliya Nurgaziyeva, CAE Secretary-General (Eurasian National University)</li>
-        </ul>
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Organizing Committee</h2>
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <p className="text-lg text-gray-700 mb-4">
+                <strong>Giulio Seccia (Chair)</strong>
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-gray-700">
+                <p>Julio Dávila</p>
+                <p>Levent Koçkesen</p>
+                <p>Okan Yilankaya</p>
+                <p>Ahmet Altinok</p>
+                <p>Dana Bazarkulova</p>
+                <p>Rajarshi Bhowal</p>
+                <p>Nino Buliskeria</p>
+                <p>Mehmet Demir</p>
+                <p>Ali Elminejad</p>
+                <p>Alejandro Melo Ponce</p>
+                <p>Vladyslav Nora</p>
+                <p>Oleg Rubanov</p>
+                <p>Josef Ruzicka</p>
+                <p>Galiya Sagyndykova</p>
+                <p>Aigerim Sarsenbayeva</p>
+                <p>Andrey Tkachenko</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

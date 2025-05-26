@@ -36,7 +36,7 @@ const Register: React.FC = () => {
   
   // Form state with validation
   const [formData, setFormData] = useState({
-    registrationType: REGISTER_PARTICIPANT,
+    registrationType: REGISTER_SPEAKER, // Changed default to Speaker
     firstName: { value: '', valid: false, touched: false, errorMessage: 'First name is required' },
     lastName: { value: '', valid: false, touched: false, errorMessage: 'Last name is required' },
     middleName: { value: '', valid: true, touched: false, errorMessage: '' },
@@ -314,50 +314,59 @@ Registration Date: ${new Date().toLocaleString()}
   
   // Save form data to localStorage when it changes
   useEffect(() => {
-    // Create an object to store saved form data
-    interface SavedFormData {
-      registrationType: string;
-      [key: string]: unknown;
-    }
-    
-    // Type guard for field state (reused here)
-    const isFieldState = (obj: any): obj is FieldState => {
-      return obj && typeof obj === 'object' && 'value' in obj && 'valid' in obj;
-    };
-    
-    // Only save the registration type and field values, not validation state
-    const dataToSave: SavedFormData = {
-      registrationType: formData.registrationType
-    };
-    
-    // Add field values
-    Object.entries(formData).forEach(([key, field]) => {
-      if (key !== 'registrationType' && key !== 'error' && key !== 'loading') {
-        // Use the type guard to check if this is a field state
-        if (isFieldState(field)) {
-          // For each field, save its current value from the ref if available
-          if (inputRefs.current[key]) {
-            const currentValue = inputRefs.current[key]?.value || field.value;
-            dataToSave[key] = { value: currentValue };
-          } else {
-            dataToSave[key] = { value: field.value };
+    // Debounce the save operation to prevent blocking while typing
+    const saveTimeout = setTimeout(() => {
+      // Create an object to store saved form data
+      interface SavedFormData {
+        registrationType: string;
+        [key: string]: unknown;
+      }
+      
+      // Type guard for field state (reused here)
+      const isFieldState = (obj: any): obj is FieldState => {
+        return obj && typeof obj === 'object' && 'value' in obj && 'valid' in obj;
+      };
+      
+      // Only save the registration type and field values, not validation state
+      const dataToSave: SavedFormData = {
+        registrationType: formData.registrationType
+      };
+      
+      // Add field values
+      Object.entries(formData).forEach(([key, field]) => {
+        if (key !== 'registrationType' && key !== 'error' && key !== 'loading') {
+          // Use the type guard to check if this is a field state
+          if (isFieldState(field)) {
+            // For each field, save its current value from the ref if available
+            if (inputRefs.current[key]) {
+              const currentValue = inputRefs.current[key]?.value || field.value;
+              dataToSave[key] = { value: currentValue };
+            } else {
+              dataToSave[key] = { value: field.value };
+            }
           }
         }
+      });
+      
+      // Show saving indicator briefly
+      setIsSaving(true);
+      
+      // Save to localStorage asynchronously
+      try {
+        localStorage.setItem('caaeRegistrationForm', JSON.stringify(dataToSave));
+      } catch (error) {
+        console.error('Failed to save form data:', error);
       }
-    });
+      
+      // Hide saving indicator after a short delay
+      setTimeout(() => {
+        setIsSaving(false);
+      }, 500);
+    }, 1000); // Debounce for 1 second
     
-    // Show saving indicator
-    setIsSaving(true);
-    
-    // Save to localStorage
-    localStorage.setItem('caaeRegistrationForm', JSON.stringify(dataToSave));
-    
-    // Hide saving indicator after a short delay
-    const timer = setTimeout(() => {
-      setIsSaving(false);
-    }, 1000);
-    
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(saveTimeout);
+    };
   }, [formData]);
 
   // Validate email format
@@ -621,11 +630,11 @@ Registration Date: ${new Date().toLocaleString()}
               onKeyDown={handleKeyDown}
               onBlur={handleBlur}
               placeholder={placeholder}
-              className={`shadow-sm block w-full sm:text-sm rounded-md ${
+              className={`shadow-sm block w-full text-base rounded-md py-3 px-4 min-h-[120px] ${
                 showError 
                   ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' 
                   : 'border-gray-300 focus:ring-primary focus:border-primary'
-              }`}
+              } focus:ring-2 transition-colors duration-200`}
             />
           ) : (
             <input
@@ -638,11 +647,11 @@ Registration Date: ${new Date().toLocaleString()}
               onBlur={handleBlur}
               placeholder={placeholder}
               {...dateProps}
-              className={`shadow-sm block w-full sm:text-sm rounded-md ${
+              className={`shadow-sm block w-full text-base rounded-md py-3 px-4 ${
                 showError 
                   ? 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500' 
                   : 'border-gray-300 focus:ring-primary focus:border-primary'
-              }`}
+              } focus:ring-2 transition-colors duration-200`}
             />
           )}
         </div>
@@ -1242,10 +1251,10 @@ Registration Date: ${new Date().toLocaleString()}
         <StepIndicator />
         
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-all duration-300 transform translate-y-0 hover:translate-y-[-5px]">
-          <div className="bg-gradient-to-r from-primary to-secondary py-6 px-6">
+          <div className="bg-gradient-to-r from-primary to-secondary py-6 px-4 sm:px-6">
             <h2 className="text-2xl font-bold text-white">Complete Your Registration</h2>
           </div>
-          <div className="px-6 py-8 sm:p-8">
+          <div className="px-4 py-6 sm:px-6 sm:py-8 lg:p-8">
             <div className="text-center">
               {registrationComplete ? (
                 <div className="text-center py-8">
@@ -1293,7 +1302,7 @@ Registration Date: ${new Date().toLocaleString()}
                   </div>
                   
                   {/* Show manual email content directly in the warning screen */}
-                  <div className="mt-6 bg-white p-6 rounded-lg border-2 border-green-500 shadow-md">
+                  <div className="mt-6 bg-white p-4 sm:p-6 rounded-lg border-2 border-green-500 shadow-md">
                     <h4 className="text-lg font-medium text-gray-900 mb-2">Manual Email Option</h4>
                     <p className="text-gray-600 mb-4">
                       Copy and paste the following details to send your registration:
@@ -1309,15 +1318,15 @@ Registration Date: ${new Date().toLocaleString()}
                             type="text" 
                             readOnly 
                             value={REGISTRATION_EMAIL}
-                            className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50"
+                            className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50 min-w-0"
                           />
                           <button
                             onClick={() => copyToClipboard(REGISTRATION_EMAIL, 'Email')}
-                            className="bg-gray-200 hover:bg-gray-300 py-3 px-4 rounded-r-md transition-colors"
+                            className="bg-gray-200 hover:bg-gray-300 py-3 px-3 sm:px-4 rounded-r-md transition-colors flex-shrink-0"
                             aria-label="Copy email address"
                             title="Copy to clipboard"
                           >
-                            <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                            <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                           </button>
                         </div>
                       </div>
@@ -1331,15 +1340,15 @@ Registration Date: ${new Date().toLocaleString()}
                             type="text" 
                             readOnly 
                             value={emailData.subject}
-                            className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50"
+                            className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50 min-w-0"
                           />
                           <button
                             onClick={() => copyToClipboard(emailData.subject, 'Subject')}
-                            className="bg-gray-200 hover:bg-gray-300 py-3 px-4 rounded-r-md transition-colors"
+                            className="bg-gray-200 hover:bg-gray-300 py-3 px-3 sm:px-4 rounded-r-md transition-colors flex-shrink-0"
                             aria-label="Copy subject"
                             title="Copy to clipboard"
                           >
-                            <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                            <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                           </button>
                         </div>
                       </div>
@@ -1351,17 +1360,17 @@ Registration Date: ${new Date().toLocaleString()}
                         <div className="relative">
                           <textarea
                             readOnly
-                            rows={6}
+                            rows={10}
                             value={emailData.body}
-                            className="w-full border border-gray-300 rounded-md text-sm py-3 px-3 bg-gray-50"
+                            className="w-full border border-gray-300 rounded-md text-sm py-3 px-3 bg-gray-50 min-h-[200px] pr-12"
                           />
                           <button
                             onClick={() => copyToClipboard(emailData.body, 'Body')}
-                            className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 p-3 rounded-md transition-colors shadow-sm"
+                            className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 p-2 sm:p-3 rounded-md transition-colors shadow-sm"
                             aria-label="Copy email body"
                             title="Copy to clipboard"
                           >
-                            <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                            <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                           </button>
                         </div>
                       </div>
@@ -1497,15 +1506,15 @@ Registration Date: ${new Date().toLocaleString()}
                               type="text" 
                               readOnly 
                               value={REGISTRATION_EMAIL}
-                              className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50"
+                              className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50 min-w-0"
                             />
                             <button
                               onClick={() => copyToClipboard(REGISTRATION_EMAIL, 'Email')}
-                              className="bg-gray-200 hover:bg-gray-300 py-3 px-4 rounded-r-md transition-colors"
+                              className="bg-gray-200 hover:bg-gray-300 py-3 px-3 sm:px-4 rounded-r-md transition-colors flex-shrink-0"
                               aria-label="Copy email address"
                               title="Copy to clipboard"
                             >
-                              <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                              <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                             </button>
                           </div>
                         </div>
@@ -1522,15 +1531,15 @@ Registration Date: ${new Date().toLocaleString()}
                               type="text" 
                               readOnly 
                               value={emailData.subject}
-                              className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50"
+                              className="border border-gray-300 flex-grow rounded-l-md text-sm py-3 px-3 bg-gray-50 min-w-0"
                             />
                             <button
                               onClick={() => copyToClipboard(emailData.subject, 'Subject')}
-                              className="bg-gray-200 hover:bg-gray-300 py-3 px-4 rounded-r-md transition-colors"
+                              className="bg-gray-200 hover:bg-gray-300 py-3 px-3 sm:px-4 rounded-r-md transition-colors flex-shrink-0"
                               aria-label="Copy subject"
                               title="Copy to clipboard"
                             >
-                              <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                              <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                             </button>
                           </div>
                         </div>
@@ -1547,15 +1556,15 @@ Registration Date: ${new Date().toLocaleString()}
                               readOnly
                               rows={10}
                               value={emailData.body}
-                              className="w-full border border-gray-300 rounded-md text-sm py-3 px-3 bg-gray-50 min-h-[200px]"
+                              className="w-full border border-gray-300 rounded-md text-sm py-3 px-3 bg-gray-50 min-h-[200px] pr-12"
                             />
                             <button
                               onClick={() => copyToClipboard(emailData.body, 'Body')}
-                              className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 p-3 rounded-md transition-colors shadow-sm"
+                              className="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 p-2 sm:p-3 rounded-md transition-colors shadow-sm"
                               aria-label="Copy email body"
                               title="Copy to clipboard"
                             >
-                              <Icon icon={FaIcons.FaCopy} className="h-5 w-5 text-gray-600" />
+                              <Icon icon={FaIcons.FaCopy} className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                             </button>
                           </div>
                         </div>
@@ -1654,297 +1663,332 @@ Registration Date: ${new Date().toLocaleString()}
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Conference Registration
-        </h1>
-        <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
-          Register for the Central Asian Economics Association Conference 2023
-        </p>
-      </div>
-      
-      <StepIndicator />
-
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="bg-gradient-to-r from-primary to-secondary py-6 px-6">
-          <h2 className="text-2xl font-bold text-white">Registration Form</h2>
-          <p className="text-white text-opacity-80 mt-1">Please complete all required fields marked with *</p>
+    <div className="pt-8">
+      {/* Registration Form */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            Conference Registration
+          </h1>
+          <p className="mt-4 text-xl text-gray-500 max-w-3xl mx-auto">
+            Register for the Central Asian Economics Association Conference 2023
+          </p>
         </div>
         
-        <div className="px-4 py-6 sm:p-8">
-          <form 
-            onSubmit={(e) => {
-              e.preventDefault(); // Always prevent default submission
-              handlePreview(e);
-            }}
-            onClick={(e) => {
-              // Prevent any clicks from bubbling up to parent elements
-              e.stopPropagation();
-            }}
-            onKeyDown={(e) => {
-              // Prevent form submission on Enter key
-              if (e.key === 'Enter') {
-                e.preventDefault();
-              }
-            }}
-          >
-            {/* Registration Type */}
-            <div className="mb-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Registration Type <span className="text-red-500">*</span></h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <label 
-                  className={`flex cursor-pointer ${formData.registrationType === REGISTER_PARTICIPANT 
-                    ? 'bg-primary-50 border-primary' 
-                    : 'bg-white border-gray-200'} 
-                    border-2 rounded-lg p-4 hover:bg-gray-50 transition-colors duration-200`}
-                >
-                  <input
-                    type="radio"
-                    name="registrationType"
-                    value={REGISTER_PARTICIPANT}
-                    checked={formData.registrationType === REGISTER_PARTICIPANT}
-                    onChange={handleRegistrationTypeChange}
-                    className="sr-only"
-                  />
-                  <div className="flex items-center">
-                    <div className={`flex items-center justify-center w-12 h-12 rounded-full ${formData.registrationType === REGISTER_PARTICIPANT ? 'bg-primary text-white' : 'bg-gray-100 text-gray-500'}`}>
-                      <Icon icon={FaIcons.FaUser} className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <h4 className={`text-base font-medium ${formData.registrationType === REGISTER_PARTICIPANT ? 'text-primary' : 'text-gray-900'}`}>Participant</h4>
-                      <p className="text-sm text-gray-500">Attend the conference only</p>
-                    </div>
-                  </div>
-                </label>
-                <label 
-                  className={`flex cursor-pointer ${formData.registrationType === REGISTER_SPEAKER 
-                    ? 'bg-primary-50 border-primary' 
-                    : 'bg-white border-gray-200'} 
-                    border-2 rounded-lg p-4 hover:bg-gray-50 transition-colors duration-200`}
-                >
-                  <input
-                    type="radio"
-                    name="registrationType"
-                    value={REGISTER_SPEAKER}
-                    checked={formData.registrationType === REGISTER_SPEAKER}
-                    onChange={handleRegistrationTypeChange}
-                    className="sr-only"
-                  />
-                  <div className="flex items-center">
-                    <div className={`flex items-center justify-center w-12 h-12 rounded-full ${formData.registrationType === REGISTER_SPEAKER ? 'bg-primary text-white' : 'bg-gray-100 text-gray-500'}`}>
-                      <Icon icon={FaIcons.FaMicrophone} className="h-6 w-6" />
-                    </div>
-                    <div className="ml-4">
-                      <h4 className={`text-base font-medium ${formData.registrationType === REGISTER_SPEAKER ? 'text-primary' : 'text-gray-900'}`}>Speaker</h4>
-                      <p className="text-sm text-gray-500">Present research paper</p>
-                    </div>
-                  </div>
-                </label>
-              </div>
-            </div>
+        <StepIndicator />
 
-            <div className="mt-10">
-              <h3 className="text-lg font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">Personal Information</h3>
-              <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <div className="sm:col-span-2">
-                  <FormField 
-                    label="First Name" 
-                    name="firstName" 
-                    required={true} 
-                    placeholder="Enter your first name"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <FormField 
-                    label="Last Name" 
-                    name="lastName" 
-                    required={true} 
-                    placeholder="Enter your last name"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <FormField 
-                    label="Middle Name" 
-                    name="middleName" 
-                    placeholder="Optional"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <FormField 
-                    label="Birth Date" 
-                    name="birthDate" 
-                    type="date"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <FormField 
-                    label="Email Address" 
-                    name="email" 
-                    type="email"
-                    required={true} 
-                    placeholder="your.email@example.com"
-                    tooltip="We'll use this email to send you conference information"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <FormField 
-                    label="Phone Number" 
-                    name="phone" 
-                    type="tel"
-                    placeholder="International format (e.g. +1 123 456 7890)"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <FormField 
-                    label="Institution/Organization" 
-                    name="institution" 
-                    placeholder="University or company name"
-                  />
-                </div>
-
-                <div className="sm:col-span-3">
-                  <FormField 
-                    label="Country" 
-                    name="country" 
-                    placeholder="Your country of residence"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Speaker-specific fields */}
-            {formData.registrationType === REGISTER_SPEAKER && (
-              <div className="mt-10">
-                <h3 className="text-lg font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200 flex items-center">
-                  <Icon icon={FaIcons.FaFileAlt} className="mr-2 text-primary" />
-                  Paper Information
-                </h3>
-                <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                  <div className="sm:col-span-6">
-                    <FormField 
-                      label="Paper Title" 
-                      name="paperTitle" 
-                      required={true} 
-                      placeholder="Enter the title of your research paper"
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="bg-gradient-to-r from-primary to-secondary py-6 px-6">
+            <h2 className="text-2xl font-bold text-white">Registration Form</h2>
+            <p className="text-white text-opacity-80 mt-1">Please complete all required fields marked with *</p>
+          </div>
+          
+          <div className="px-4 py-6 sm:px-6 sm:py-8 lg:p-8">
+            <div className="text-center">
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault(); // Always prevent default submission
+                  handlePreview(e);
+                }}
+                onClick={(e) => {
+                  // Prevent any clicks from bubbling up to parent elements
+                  e.stopPropagation();
+                }}
+                onKeyDown={(e) => {
+                  // Prevent form submission on Enter key
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                  }
+                }}
+              >
+                {/* Registration Type */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">Registration Type <span className="text-red-500">*</span></h3>
+                  
+                  {/* Ticker Toggle */}
+                  <div className="relative inline-flex items-center bg-gray-100 rounded-lg p-1 max-w-md mx-auto">
+                    {/* Background slider */}
+                    <div 
+                      className={`absolute top-1 h-10 bg-primary rounded-md shadow-md transition-transform duration-300 ease-in-out ${
+                        formData.registrationType === REGISTER_SPEAKER 
+                          ? 'transform translate-x-0 w-28' 
+                          : 'transform translate-x-28 w-32'
+                      }`}
                     />
-                  </div>
-
-                  <div className="sm:col-span-6">
-                    <FormField 
-                      label="Abstract" 
-                      name="paperAbstract" 
-                      type="textarea"
-                      rows={4}
-                      required={true} 
-                      placeholder="Provide a brief summary of your paper (250-300 words)"
-                      tooltip="A good abstract should include your research question, methodology, key findings, and significance"
-                    />
-                    <p className="mt-2 text-sm text-gray-500">Brief summary of your paper (250-300 words)</p>
-                  </div>
-
-                  <div className="sm:col-span-6">
-                    <FormField 
-                      label="Co-Authors" 
-                      name="coAuthors" 
-                      placeholder="Separate names with commas"
-                      tooltip="List all co-authors in the format: First Name Last Name, First Name Last Name"
-                    />
-                    <p className="mt-2 text-sm text-gray-500">Separate names with commas</p>
-                  </div>
-
-                  <div className="sm:col-span-6">
-                    <FormField 
-                      label="Keywords" 
-                      name="keywords" 
-                      placeholder="e.g., Economics, Finance, Central Asia"
-                    />
-                    <p className="mt-2 text-sm text-gray-500">Separate keywords with commas</p>
+                    
+                    {/* Speaker Option - Now first */}
+                    <label className="relative z-10 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="registrationType"
+                        value={REGISTER_SPEAKER}
+                        checked={formData.registrationType === REGISTER_SPEAKER}
+                        onChange={handleRegistrationTypeChange}
+                        className="sr-only"
+                      />
+                      <div className="flex items-center px-4 py-2 w-28">
+                        <Icon 
+                          icon={FaIcons.FaMicrophone} 
+                          className={`h-4 w-4 mr-2 transition-colors duration-300 ${
+                            formData.registrationType === REGISTER_SPEAKER 
+                              ? 'text-white' 
+                              : 'text-gray-600'
+                          }`} 
+                        />
+                        <span className={`text-sm font-medium transition-colors duration-300 ${
+                          formData.registrationType === REGISTER_SPEAKER 
+                            ? 'text-white' 
+                            : 'text-gray-600'
+                        }`}>
+                          Speaker
+                        </span>
+                      </div>
+                    </label>
+                    
+                    {/* Participant Option - Now second */}
+                    <label className="relative z-10 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="registrationType"
+                        value={REGISTER_PARTICIPANT}
+                        checked={formData.registrationType === REGISTER_PARTICIPANT}
+                        onChange={handleRegistrationTypeChange}
+                        className="sr-only"
+                      />
+                      <div className="flex items-center px-4 py-2 w-32">
+                        <Icon 
+                          icon={FaIcons.FaUser} 
+                          className={`h-4 w-4 mr-2 transition-colors duration-300 ${
+                            formData.registrationType === REGISTER_PARTICIPANT 
+                              ? 'text-white' 
+                              : 'text-gray-600'
+                          }`} 
+                        />
+                        <span className={`text-sm font-medium transition-colors duration-300 ${
+                          formData.registrationType === REGISTER_PARTICIPANT 
+                            ? 'text-white' 
+                            : 'text-gray-600'
+                        }`}>
+                          Participant
+                        </span>
+                      </div>
+                    </label>
                   </div>
                   
-                  <div className="sm:col-span-6">
-                    <div className="rounded-md bg-yellow-50 p-4 shadow-sm">
-                      <div className="flex">
-                        <div className="flex-shrink-0">
-                          <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <div className="ml-3">
-                          <h3 className="text-sm font-medium text-yellow-800">Important Note</h3>
-                          <div className="mt-2 text-sm text-yellow-700">
-                            <p>You will need to attach your full paper (PDF format) to the email that will be generated after submitting this form.</p>
+                  {/* Description below ticker */}
+                  <div className="text-center mt-4">
+                    <p className="text-sm text-gray-600">
+                      {formData.registrationType === REGISTER_SPEAKER 
+                        ? 'Present research paper' 
+                        : 'Attend the conference only'
+                      }
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-10">
+                  <h3 className="text-lg font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200">Personal Information</h3>
+                  <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                    <div className="sm:col-span-2">
+                      <FormField 
+                        label="First Name" 
+                        name="firstName" 
+                        required={true} 
+                        placeholder="Enter your first name"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <FormField 
+                        label="Last Name" 
+                        name="lastName" 
+                        required={true} 
+                        placeholder="Enter your last name"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <FormField 
+                        label="Middle Name" 
+                        name="middleName" 
+                        placeholder="Optional"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <FormField 
+                        label="Birth Date" 
+                        name="birthDate" 
+                        type="date"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <FormField 
+                        label="Email Address" 
+                        name="email" 
+                        type="email"
+                        required={true} 
+                        placeholder="your.email@example.com"
+                        tooltip="We'll use this email to send you conference information"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <FormField 
+                        label="Phone Number" 
+                        name="phone" 
+                        type="tel"
+                        placeholder="International format (e.g. +1 123 456 7890)"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <FormField 
+                        label="Institution/Organization" 
+                        name="institution" 
+                        placeholder="University or company name"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-3">
+                      <FormField 
+                        label="Country" 
+                        name="country" 
+                        placeholder="Your country of residence"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Speaker-specific fields */}
+                {formData.registrationType === REGISTER_SPEAKER && (
+                  <div className="mt-10">
+                    <h3 className="text-lg font-bold text-gray-900 mb-6 pb-2 border-b border-gray-200 flex items-center">
+                      <Icon icon={FaIcons.FaFileAlt} className="mr-2 text-primary" />
+                      Paper Information
+                    </h3>
+                    <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                      <div className="sm:col-span-6">
+                        <FormField 
+                          label="Paper Title" 
+                          name="paperTitle" 
+                          required={true} 
+                          placeholder="Enter the title of your research paper"
+                        />
+                      </div>
+
+                      <div className="sm:col-span-6">
+                        <FormField 
+                          label="Abstract" 
+                          name="paperAbstract" 
+                          type="textarea"
+                          rows={4}
+                          required={true} 
+                          placeholder="Provide a brief summary of your paper (250-300 words)"
+                          tooltip="A good abstract should include your research question, methodology, key findings, and significance"
+                        />
+                        <p className="mt-2 text-sm text-gray-500">Brief summary of your paper (250-300 words)</p>
+                      </div>
+
+                      <div className="sm:col-span-6">
+                        <FormField 
+                          label="Co-Authors" 
+                          name="coAuthors" 
+                          placeholder="Separate names with commas"
+                          tooltip="List all co-authors in the format: First Name Last Name, First Name Last Name"
+                        />
+                        <p className="mt-2 text-sm text-gray-500">Separate names with commas</p>
+                      </div>
+
+                      <div className="sm:col-span-6">
+                        <FormField 
+                          label="Keywords" 
+                          name="keywords" 
+                          placeholder="e.g., Economics, Finance, Central Asia"
+                        />
+                        <p className="mt-2 text-sm text-gray-500">Separate keywords with commas</p>
+                      </div>
+                      
+                      <div className="sm:col-span-6">
+                        <div className="rounded-md bg-yellow-50 p-4 shadow-sm">
+                          <div className="flex">
+                            <div className="flex-shrink-0">
+                              <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                            <div className="ml-3">
+                              <h3 className="text-sm font-medium text-yellow-800">Important Note</h3>
+                              <div className="mt-2 text-sm text-yellow-700">
+                                <p>You will need to attach your full paper (PDF format) to the email that will be generated after submitting this form.</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            )}
-
-            {/* Error message */}
-            {formData.error && (
-              <div className="mt-6 text-red-600 text-sm p-3 bg-red-50 rounded-md">
-                <div className="flex">
-                  <svg className="h-5 w-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  {formData.error}
-                </div>
-              </div>
-            )}
-
-            {/* Submit button */}
-            <div className="mt-8 flex justify-end">
-              <button
-                type="submit"
-                disabled={formData.loading}
-                className={`inline-flex justify-center items-center py-3 px-6 border border-transparent text-base font-medium rounded-md shadow-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200 ${formData.loading ? 'opacity-70 cursor-not-allowed' : ''}`}
-              >
-                {formData.loading ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Processing...
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    Continue to Email
-                    <Icon icon={FaIcons.FaArrowRight} className="ml-2" />
-                  </span>
                 )}
-              </button>
-            </div>
-            
-            {/* Auto-save indicator */}
-            <div className="mt-4 flex justify-center text-sm text-gray-500">
-              <div className="flex items-center">
-                {isSaving ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>Saving your changes...</span>
-                  </>
-                ) : (
-                  <>
-                    <Icon icon={FaIcons.FaCheck} className="h-4 w-4 text-green-500 mr-2" />
-                    <span>Your data is saved automatically</span>
-                  </>
+
+                {/* Error message */}
+                {formData.error && (
+                  <div className="mt-6 text-red-600 text-sm p-3 bg-red-50 rounded-md">
+                    <div className="flex">
+                      <svg className="h-5 w-5 text-red-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      {formData.error}
+                    </div>
+                  </div>
                 )}
-              </div>
+
+                {/* Submit button */}
+                <div className="mt-8 flex justify-end">
+                  <button
+                    type="submit"
+                    disabled={formData.loading}
+                    className={`inline-flex justify-center items-center py-3 px-6 border border-transparent text-base font-medium rounded-md shadow-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200 ${formData.loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  >
+                    {formData.loading ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        Continue to Email
+                        <Icon icon={FaIcons.FaArrowRight} className="ml-2" />
+                      </span>
+                    )}
+                  </button>
+                </div>
+                
+                {/* Auto-save indicator */}
+                <div className="mt-4 flex justify-center text-sm text-gray-500">
+                  <div className="flex items-center">
+                    {isSaving ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Saving your changes...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Icon icon={FaIcons.FaCheck} className="h-4 w-4 text-green-500 mr-2" />
+                        <span>Your data is saved automatically</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

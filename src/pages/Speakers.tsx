@@ -93,50 +93,50 @@ const Speakers: React.FC = () => {
   };
 
   return (
-    <div className="space-y-12">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Keynote Speakers
-        </h1>
-      </div>
-
-      {/* Keynote Speakers */}
+    <div className="pt-8">
+      {/* Keynote Speakers Section */}
       {keynoteSpeakers.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Keynote Speakers</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {keynoteSpeakers.map(speaker => (
-              <SpeakerCard key={speaker.id} speaker={speaker} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* All Other Speakers */}
-      {regularSpeakers.length > 0 && (
-        <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Speakers</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularSpeakers.map(speaker => (
-              <SpeakerCard key={speaker.id} speaker={speaker} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Call for Papers */}
-      <section className="bg-gray-50 p-8 rounded-lg">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Become a Speaker</h2>
-          <p className="text-gray-700 mb-6">
-            We're still accepting submissions for parallel sessions and poster presentations.
-            Submit your research paper or abstract by July 15, 2023.
-          </p>
-          <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-            Submit Your Paper
-          </button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Keynote Speakers</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {keynoteSpeakers.map(speaker => (
+                <SpeakerCard key={speaker.id} speaker={speaker} />
+              ))}
+            </div>
+          </section>
         </div>
-      </section>
+      )}
+
+      {/* All Other Speakers Section */}
+      {regularSpeakers.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Speakers</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularSpeakers.map(speaker => (
+                <SpeakerCard key={speaker.id} speaker={speaker} />
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {/* Call for Papers Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <section className="bg-gray-50 p-8 rounded-lg">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Become a Speaker</h2>
+            <p className="text-gray-700 mb-6">
+              We're still accepting submissions for parallel sessions and poster presentations.
+              Submit your research paper or abstract by July 15, 2023.
+            </p>
+            <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+              Submit Your Paper
+            </button>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

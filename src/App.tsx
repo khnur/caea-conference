@@ -20,16 +20,19 @@ function App() {
     <Router>
       <div className="min-h-screen font-sans">
         {/* Navigation Bar */}
-        <nav className="bg-white shadow-md">
+        <nav className="bg-white fixed w-full z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <div className="flex-shrink-0 flex items-center">
-                  <Link to="/" className="text-2xl font-bold text-primary">
-                    CAE Conference
-                  </Link>
-                </div>
-                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="flex justify-between h-14">
+              {/* Logo on the left */}
+              <div className="flex-shrink-0 flex items-center">
+                <Link to="/" className="text-2xl font-bold text-primary">
+                  CAE Conference
+                </Link>
+              </div>
+
+              {/* Navigation items and register button on the right */}
+              <div className="flex items-center">
+                <div className="hidden sm:flex sm:space-x-8">
                   <Link
                     to="/about"
                     className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
@@ -55,8 +58,6 @@ function App() {
                     Location
                   </Link>
                 </div>
-              </div>
-              <div className="flex items-center">
                 <Link
                   to="/register"
                   className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
@@ -157,7 +158,7 @@ function App() {
         {/* Footer */}
         <footer className="bg-primary text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 text-center">
               <div>
                 <h3 className="text-lg font-bold mb-4">CAE Conference</h3>
                 <p className="text-sm">
