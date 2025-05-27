@@ -8,7 +8,7 @@ A modern, responsive conference website for the Central Asian Economics (CAE) co
 - Interactive navigation with mobile menu
 - Multiple conference information pages:
   - Home page with key conference information
-  - About Us with details about the organization
+  - About with details about the organization
   - Schedule with interactive day selection
   - Speakers with keynote and session presenters
   - Location with venue details, travel information, and accommodation options

@@ -37,16 +37,11 @@ const Speakers: React.FC = () => {
     );
   }
 
-  // For demonstration, let's mark specific speakers as keynote speakers
-  // In a real application, this information might come from the API or be stored elsewhere
-  const keynoteSpeakers = data.speakers.filter(speaker => 
-    speaker.id === "00000000-0000-0000-0000-000000000005" || 
-    speaker.id === "00000000-0000-0000-0000-000000000001"
-  );
+  // Filter keynote speakers based on isTopSpeaker flag
+  const keynoteSpeakers = data.speakers.filter(speaker => speaker.isTopSpeaker);
   
-  const regularSpeakers = data.speakers.filter(speaker => 
-    !keynoteSpeakers.some(keynote => keynote.id === speaker.id)
-  );
+  // Regular speakers are those who are not keynote speakers
+  const regularSpeakers = data.speakers.filter(speaker => !speaker.isTopSpeaker);
 
   const SpeakerCard: React.FC<SpeakerCardProps> = ({ speaker }) => {
     // Function to get initials from full name
@@ -121,22 +116,6 @@ const Speakers: React.FC = () => {
           </section>
         </div>
       )}
-
-      {/* Call for Papers Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <section className="bg-gray-50 p-8 rounded-lg">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Become a Speaker</h2>
-            <p className="text-gray-700 mb-6">
-              We're still accepting submissions for parallel sessions and poster presentations.
-              Submit your research paper or abstract by July 15, 2023.
-            </p>
-            <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-              Submit Your Paper
-            </button>
-          </div>
-        </section>
-      </div>
     </div>
   );
 };

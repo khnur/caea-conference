@@ -8,8 +8,8 @@ import { useSessionizeData } from '../services/sessionizeService';
 const Home: React.FC = () => {
   const { data, loading } = useSessionizeData();
 
-  // Select up to 3 speakers to feature (if API data is available)
-  const featuredSpeakers = data && data.speakers ? data.speakers.slice(0, 3) : [];
+  // Select keynote speakers (those with isTopSpeaker flag)
+  const featuredSpeakers = data && data.speakers ? data.speakers.filter(speaker => speaker.isTopSpeaker) : [];
 
   // Function to get initials from full name
   const getInitials = (name: string) => {
@@ -119,7 +119,11 @@ const Home: React.FC = () => {
               Featured Speakers
             </h2>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-10 grid grid-cols-1 gap-12 ${
+            featuredSpeakers.length === 1 ? 'max-w-md mx-auto' :
+            featuredSpeakers.length === 2 ? 'sm:grid-cols-2 max-w-2xl mx-auto' :
+            'sm:grid-cols-2 lg:grid-cols-3'
+          }`}>
             {loading ? (
               <div className="col-span-3 flex justify-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>

@@ -37,13 +37,13 @@ function App() {
                     to="/about"
                     className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    About Us
+                    About
                   </Link>
                   <Link
                     to="/schedule"
                     className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    Schedule
+                    Program
                   </Link>
                   <Link
                     to="/speakers"
@@ -55,14 +55,14 @@ function App() {
                     to="/location"
                     className="border-transparent text-gray-600 hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    Location
+                    Venue
                   </Link>
                 </div>
                 <Link
                   to="/register"
                   className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
                 >
-                  Register
+                  Submit Paper
                 </Link>
                 <div className="-mr-2 ml-4 flex items-center sm:hidden">
                   <button
@@ -107,14 +107,14 @@ function App() {
                 className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                About Us
+                About
               </Link>
               <Link
                 to="/schedule"
                 className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Schedule
+                Program
               </Link>
               <Link
                 to="/speakers"
@@ -128,14 +128,14 @@ function App() {
                 className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary hover:text-primary"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Location
+                Venue
               </Link>
               <Link
                 to="/register"
                 className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Register
+                Submit Paper
               </Link>
             </div>
           </div>

@@ -40,10 +40,8 @@ const AboutUs: React.FC = () => {
                 <p>Mehmet Demir</p>
                 <p>Ali Elminejad</p>
                 <p>Alejandro Melo Ponce</p>
-                <p>Vladyslav Nora</p>
                 <p>Oleg Rubanov</p>
                 <p>Josef Ruzicka</p>
-                <p>Galiya Sagyndykova</p>
                 <p>Aigerim Sarsenbayeva</p>
                 <p>Andrey Tkachenko</p>
               </div>
