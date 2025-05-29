@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// Import the local image
+// Import available images statically
 import astanaImage from '../assets/images/Photo-of-Astana.jpg';
+import astanaImage1 from '../assets/images/Photo-of-Astana-1.webp';
 // Import the Sessionize service
 import { useSessionizeData } from '../services/sessionizeService';
 
 const Home: React.FC = () => {
   const { data, loading } = useSessionizeData();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Define available images array
+  const availableImages = [astanaImage, astanaImage1];
+
+  // Auto-advance slideshow every 5 seconds
+  useEffect(() => {
+    if (availableImages.length > 1) {
+      const interval = setInterval(() => {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentImageIndex((prevIndex) => (prevIndex + 1) % availableImages.length);
+          setIsTransitioning(false);
+        }, 500); // Half of transition duration
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [availableImages.length]);
+
+  // Log for debugging
+  useEffect(() => {
+    console.log(`Slideshow initialized with ${availableImages.length} images`);
+    console.log(`Current image index: ${currentImageIndex}`);
+  }, [currentImageIndex, availableImages.length]);
 
   // Select keynote speakers (those with isTopSpeaker flag)
   const featuredSpeakers = data && data.speakers ? data.speakers.filter(speaker => speaker.isTopSpeaker) : [];
@@ -24,13 +51,18 @@ const Home: React.FC = () => {
     <div>
       {/* Hero Section */}
       <section className="relative overflow-hidden w-screen h-screen -ml-[calc((100vw-100%)/2)]">
-        {/* Background Image */}
+        {/* Background Images with Crossfade */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={astanaImage}
-            alt="Astana Cityscape with Baiterek Tower" 
-            className="w-full h-full object-cover"
-          />
+          {availableImages.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt="Astana Cityscape with Baiterek Tower"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
           {/* Enhanced gradient overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/80"></div>
         </div>
@@ -111,12 +143,12 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Speakers */}
+      {/* Keynote Speakers */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Featured Speakers
+              Keynote Speakers
             </h2>
           </div>
           <div className={`mt-10 grid grid-cols-1 gap-12 ${

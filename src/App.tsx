@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import logo from './assets/logo/nu_15_years_logo.png';
 
 // Page components
 const Home = React.lazy(() => import('./pages/Home'));
@@ -25,8 +26,20 @@ function App() {
             <div className="flex justify-between h-14">
               {/* Logo on the left */}
               <div className="flex-shrink-0 flex items-center">
-                <Link to="/" className="text-2xl font-bold text-primary">
-                  CAE Conference
+                <Link to="/" className="flex items-center group transition-all duration-300 hover:scale-105">
+                  <div className="relative">
+                    <img 
+                      src={logo} 
+                      alt="Nazarbayev University 15 Years Logo" 
+                      className="h-12 w-auto drop-shadow-md transition-all duration-300 group-hover:drop-shadow-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  </div>
+                  <div className="ml-4 flex flex-col">
+                    <span className="text-xl font-bold text-primary transition-colors duration-300 group-hover:text-blue-600">
+                      CAE Conference
+                    </span>
+                  </div>
                 </Link>
               </div>
 
@@ -58,12 +71,14 @@ function App() {
                     Venue
                   </Link>
                 </div>
-                <Link
-                  to="/register"
+                <a
+                  href="https://sessionize.com/caea/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
                 >
                   Submit Paper
-                </Link>
+                </a>
                 <div className="-mr-2 ml-4 flex items-center sm:hidden">
                   <button
                     onClick={toggleMenu}
@@ -130,13 +145,15 @@ function App() {
               >
                 Venue
               </Link>
-              <Link
-                to="/register"
+              <a
+                href="https://sessionize.com/caea/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Submit Paper
-              </Link>
+              </a>
             </div>
           </div>
         </nav>
