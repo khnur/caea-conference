@@ -70,18 +70,12 @@ const Speakers: React.FC = () => {
             </div>
           )}
         </div>
-        <div className="p-6">
+        <div className="p-6 pb-8">
           <h3 className="text-lg font-bold text-gray-900">{speaker.fullName}</h3>
-          <p className="text-sm text-primary">{speaker.tagLine || "Speaker"}</p>
+          <p className="text-sm text-primary mb-4">{speaker.tagLine || "Speaker"}</p>
           <div className="mt-3">
-            <p className="text-sm text-gray-700 line-clamp-3">{speaker.bio}</p>
+            <p className="text-sm text-gray-700 leading-relaxed">{speaker.bio}</p>
           </div>
-          {speaker.sessions && speaker.sessions.length > 0 && (
-            <div className="mt-4">
-              <p className="text-xs text-gray-500 uppercase font-semibold">Sessions</p>
-              <p className="text-sm text-gray-700">{speaker.sessions.length} {speaker.sessions.length === 1 ? 'session' : 'sessions'}</p>
-            </div>
-          )}
         </div>
       </div>
     );

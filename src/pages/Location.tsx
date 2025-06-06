@@ -19,7 +19,7 @@ const Location: React.FC = () => {
         <div className="p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Nazarbayev University</h2>
           <p className="text-gray-700 mb-4">
-            The CAE Conference 2025 will be held at Nazarbayev University, a leading research university in Kazakhstan. The conference will take place in the School of Sciences and Humanities building, which features state-of-the-art facilities for academic events.
+            The CAE Conference 2025 will be held at Nazarbayev University, a leading research university in Kazakhstan.
           </p>
           <div className="mt-6 border-t border-gray-200 pt-6">
             <div className="flex flex-col sm:flex-row">
@@ -199,7 +199,7 @@ const Location: React.FC = () => {
             Participants from many countries may require a visa to enter Kazakhstan. We strongly recommend checking the visa requirements for your country as early as possible.
           </p>
           <p className="mb-4">
-            The conference organizing committee can provide invitation letters to support your visa application. Please contact us at visa@caeconference.org with your details if you require an invitation letter.
+            The conference organizing committee can provide invitation letters to support your visa application. Please contact us at caec@nu.edu.kz with your details if you require an invitation letter.
           </p>
           <button className="mt-2 bg-white text-primary hover:bg-gray-100 py-2 px-4 rounded-md font-medium">
             Visa Requirements Information

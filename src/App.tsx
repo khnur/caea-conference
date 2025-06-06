@@ -9,6 +9,7 @@ const Schedule = React.lazy(() => import('./pages/Schedule'));
 const Speakers = React.lazy(() => import('./pages/Speakers'));
 const Location = React.lazy(() => import('./pages/Location'));
 const Register = React.lazy(() => import('./pages/Register'));
+const CallForPapers = React.lazy(() => import('./pages/CallForPapers'));
 
 // Navigation component that uses location
 function Navigation() {
@@ -20,8 +21,9 @@ function Navigation() {
   // Navigation items
   const navItems = [
     { path: '/about', label: 'About' },
-    { path: '/schedule', label: 'Program' },
-    { path: '/speakers', label: 'Speakers' },
+    { path: '/call-for-papers', label: 'Call for Papers' },
+    // { path: '/schedule', label: 'Program' },
+    // { path: '/speakers', label: 'Speakers' },
     { path: '/location', label: 'Venue' }
   ];
 
@@ -256,14 +258,13 @@ function App() {
               <div>
                 <h3 className="text-lg font-bold mb-4">CAE Conference</h3>
                 <p className="text-sm">
-                  Central Asian Economics Association Annual Conference hosted by Nazarbayev University
+                  Central Asian Economic Conference in celebration of the 15th year anniversary of the Nazarbayev University.
                 </p>
               </div>
               <div>
                 <h3 className="text-lg font-bold mb-4">Contact</h3>
                 <p className="text-sm">
-                  Email: info@caeconference.org<br />
-                  Phone: +7 (7172) 123-4567
+                  Email: caec@nu.edu.kz
                 </p>
               </div>
             </div>
@@ -288,6 +289,7 @@ function MainContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/call-for-papers" element={<CallForPapers />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/speakers" element={<Speakers />} />
           <Route path="/location" element={<Location />} />
