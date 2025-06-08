@@ -1,7 +1,18 @@
-import React from 'react';
-import nazarbayevUniversity from '../assets/images/nazarbayev_university.png';
+import React, { useState, useEffect } from 'react';
+import nazarbayevUniversityWebp from '../assets/images/nazarbayev_university_optimized.webp';
+import nazarbayevUniversityJpg from '../assets/images/nazarbayev_university_optimized.jpg';
+import astanaPhotoJpg from '../assets/images/Photo-of-Astana.jpg';
 
 const Location: React.FC = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  // Preload the main image for faster loading
+  useEffect(() => {
+    const img = new Image();
+    img.src = nazarbayevUniversityWebp;
+  }, []);
+
   return (
     <div className="pt-8">
 
@@ -9,11 +20,44 @@ const Location: React.FC = () => {
       <section className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="relative h-[600px]">
           <div className="absolute inset-0">
-            <img
-              src={nazarbayevUniversity}
-              alt="Nazarbayev University Campus"
-              className="w-full h-full object-cover"
-            />
+            {/* Loading placeholder */}
+            {!imageLoaded && !imageError && (
+              <div className="w-full h-full bg-gray-200 animate-pulse flex items-center justify-center">
+                <div className="text-gray-500 text-center">
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-500 mb-2"></div>
+                  <div>Loading university image...</div>
+                  <div className="text-xs mt-1">This may take a moment</div>
+                </div>
+              </div>
+            )}
+            
+            {/* Error placeholder */}
+            {imageError && (
+              <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                  <div className="text-4xl mb-2">🏫</div>
+                  <div className="text-lg font-medium">Nazarbayev University</div>
+                  <div className="text-sm">Conference Venue</div>
+                </div>
+              </div>
+            )}
+            
+            {/* Optimized university image with modern formats */}
+            <picture>
+              <source srcSet={nazarbayevUniversityWebp} type="image/webp" />
+              <img
+                src={nazarbayevUniversityJpg}
+                alt="Nazarbayev University Campus"
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                loading="eager"
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
+                style={{ display: imageError ? 'none' : 'block' }}
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
         <div className="p-8">
