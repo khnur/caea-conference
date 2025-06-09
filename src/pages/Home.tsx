@@ -137,7 +137,7 @@ const Home: React.FC = () => {
               The <span className="font-bold">Central Asian Economics Conference 2025</span> aims to bring together economists connected to the Central Asian region, whether by origin, research interest, or professional engagement.
             </p>
             <p className="mt-8 text-lg text-gray-700 leading-relaxed">
-              Hosted by Nazarbayev University from <span className="font-bold">August 29 to 31</span> as part of its 15th anniversary celebrations, the event marks the first step toward launching the <span className="font-bold">Central Asian Economics Association (CAEA)</span>, a platform to support research coordination, funding, and future academic initiatives.
+              Hosted by Nazarbayev University from <span className="font-bold">August 29 to 31</span> as part of its <span className="font-bold">15th anniversary celebrations</span>, the event marks the first step toward launching the <span className="font-bold">Central Asian Economics Association (CAEA)</span>, a platform to support research coordination, funding, and future academic initiatives.
             </p>
           </div>
         </div>
