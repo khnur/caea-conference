@@ -193,14 +193,14 @@ const Home: React.FC = () => {
               </div>
             )}
           </div>
-          <div className="mt-16 text-center">
+          {/* <div className="mt-16 text-center">
             <Link
               to="/speakers"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200"
             >
               View All Speakers
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>
