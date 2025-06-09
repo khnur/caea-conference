@@ -155,7 +155,7 @@ function Navigation() {
                 ))}
               </div>
               <a
-                href="https://sessionize.com/caea/"
+                href="https://sessionize.com/caec/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
@@ -211,7 +211,7 @@ function Navigation() {
               </Link>
             ))}
             <a
-              href="https://sessionize.com/caea/"
+              href="https://sessionize.com/caec/"
               target="_blank"
               rel="noopener noreferrer"
               className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"

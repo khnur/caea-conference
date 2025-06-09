@@ -98,7 +98,7 @@ const CallForPapers: React.FC = () => {
               
               <div className="text-center">
                 <a
-                  href="https://sessionize.com/caea/"
+                  href="https://sessionize.com/caec/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
@@ -124,7 +124,7 @@ const CallForPapers: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-gray-200 pb-3">
                   <span className="text-lg font-medium text-gray-900">Submit a full paper or extended abstract (PDF)</span>
-                  <span className="text-lg text-gray-600 mt-1 sm:mt-0">through our <a href="https://sessionize.com/caea/" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-dark underline">submission portal</a></span>
+                  <span className="text-lg text-gray-600 mt-1 sm:mt-0">through our <a href="https://sessionize.com/caec/" target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent-dark underline">submission portal</a></span>
                 </div>
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-gray-200 pb-3">
                   <span className="text-lg font-medium text-gray-900">Deadline for Submissions:</span>
