@@ -87,7 +87,7 @@ const Speakers: React.FC = () => {
       {keynoteSpeakers.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Keynote Speakers</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">{keynoteSpeakers.length === 1 ? 'Keynote Speaker' : 'Keynote Speakers'}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {keynoteSpeakers.map(speaker => (
                 <SpeakerCard key={speaker.id} speaker={speaker} />
