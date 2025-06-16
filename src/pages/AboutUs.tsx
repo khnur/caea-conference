@@ -48,16 +48,18 @@ const AboutUs: React.FC = () => {
                 <p className="font-semibold mb-2">Members:</p>
                 <div className="ml-4 grid grid-cols-1 md:grid-cols-2 gap-2">
                   <p>Ahmet Altinok</p>
-                  <p>Alexis Belianin (Almaty Management University)</p>
                   <p>Dana Bazarkulova</p>
-                  <p>Bauyrzhan Yedgenov (SDU University)</p>
+                  <p>Alexis Belianin (Almaty Management University)</p>
                   <p>Rajarshi Bhowal</p>
                   <p>Julio Dávila</p>
                   <p>Mehmet Demir</p>
                   <p>Zhanna Kapsalyamova</p>
+                  <p>Pengshan Pan (New Uzbekistan University)</p>
                   <p>Josef Ruzicka</p>
                   <p>Giulio Seccia</p>
                   <p>Andrey Tkachenko</p>
+                  <p>Gerhard Toews (New Economic School)</p>
+                  <p>Bauyrzhan Yedgenov (SDU University)</p>
                   <p>Okan Yilankaya</p>
                 </div>
               </div>
