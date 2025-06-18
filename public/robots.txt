@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://caec.nu.edu.kz/sitemap.xml
+
+# Optional: Block access to admin or sensitive areas if any exist in the future
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow common crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: / 
