@@ -54,6 +54,7 @@ const AboutUs: React.FC = () => {
                   <p>Julio Dávila</p>
                   <p>Mehmet Demir</p>
                   <p>Zhanna Kapsalyamova</p>
+                  <p>Karlygash Kuralbayeva (King's College London)</p>
                   <p>Pengshan Pan (New Uzbekistan University)</p>
                   <p>Josef Ruzicka</p>
                   <p>Giulio Seccia</p>
