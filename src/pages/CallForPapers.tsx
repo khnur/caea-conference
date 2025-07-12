@@ -87,6 +87,10 @@ const CallForPapers: React.FC = () => {
                 </li>
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                  <strong>Sergey Paltsev</strong>, MIT Center for Sustainability Science and Strategy
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
                   <span dangerouslySetInnerHTML={{ __html: 'Round Table on <strong>Central Asian Economics Association</strong> (TBA)' }} />
                 </li>
                 <li className="flex items-center">
