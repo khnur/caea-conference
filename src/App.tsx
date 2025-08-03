@@ -16,7 +16,6 @@ function Navigation() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [isNavVisible, setIsNavVisible] = React.useState(!isHomePage);
 
   // Navigation items
   const navItems = [
@@ -32,94 +31,14 @@ function Navigation() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Effect to handle visibility based on page
+  // Effect to handle mobile menu closing when changing pages
   React.useEffect(() => {
-    if (isHomePage) {
-      setIsNavVisible(false);
-      setIsMenuOpen(false);
-    } else {
-      setIsNavVisible(true);
-      setIsMenuOpen(false);
-    }
-  }, [isHomePage]);
-
-  // Mouse tracking and scroll detection for home page
-  React.useEffect(() => {
-    if (!isHomePage) return;
-
-    const findAboutSection = () => {
-      const h2Elements = document.querySelectorAll('h2');
-      return Array.from(h2Elements).find(h2 => 
-        h2.textContent?.includes('About the Conference')
-      );
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Show navigation when mouse is in the top 100px of the screen
-      if (e.clientY <= 100) {
-        setIsNavVisible(true);
-      } else if (e.clientY > 150) {
-        // Hide navigation when mouse moves away from top area (with some buffer)
-        // But only if we haven't scrolled past the "About the Conference" section
-        const aboutSection = findAboutSection();
-        if (aboutSection) {
-          const aboutRect = aboutSection.getBoundingClientRect();
-          const centerOfScreen = window.innerHeight / 2;
-          
-          // If "About the Conference" section is not yet in center, allow hiding
-          if (aboutRect.top > centerOfScreen) {
-            setIsNavVisible(false);
-            setIsMenuOpen(false);
-          }
-        } else {
-          setIsNavVisible(false);
-          setIsMenuOpen(false);
-        }
-      }
-    };
-
-    const handleScroll = () => {
-      // Find the "About the Conference" section
-      const aboutSection = findAboutSection();
-      
-      // If user scrolls back to the very top, hide navigation
-      if (window.scrollY === 0) {
-        setIsNavVisible(false);
-        return;
-      }
-      
-      if (aboutSection) {
-        const aboutRect = aboutSection.getBoundingClientRect();
-        const centerOfScreen = window.innerHeight / 2;
-        
-        // Show navigation when "About the Conference" section is visible or has passed
-        // This handles fast scrolling better than exact center positioning
-        if (aboutRect.top <= centerOfScreen) {
-          setIsNavVisible(true);
-        }
-      } else {
-        // Fallback: show navigation after scrolling down 200px
-        if (window.scrollY > 200) {
-          setIsNavVisible(true);
-        }
-      }
-    };
-
-    // Add event listeners
-    document.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    setIsMenuOpen(false);
   }, [isHomePage]);
 
   return (
     <>
-      <nav className={`bg-white fixed w-full z-50 transition-transform duration-300 ${
-        isHomePage && !isNavVisible ? '-translate-y-full' : 'translate-y-0'
-      }`}>
+      <nav className="bg-white fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-14">
             {/* Logo on the left */}
@@ -154,14 +73,24 @@ function Navigation() {
                   </Link>
                 ))}
               </div>
-              <a
-                href="https://sessionize.com/caec/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
-              >
-                Submit Paper
-              </a>
+              <div className="hidden sm:flex ml-8 space-x-3">
+                <a
+                  href="https://sessionize.com/caec/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
+                >
+                  Register
+                </a>
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200"
+                >
+                  Attend
+                </a>
+              </div>
               <div className="-mr-2 ml-4 flex items-center sm:hidden">
                 <button
                   onClick={toggleMenu}
@@ -217,26 +146,22 @@ function Navigation() {
               className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"
               onClick={() => setIsMenuOpen(false)}
             >
-              Submit Paper
+              Register
+            </a>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block pl-3 pr-4 py-2 border-l-4 border-primary text-base font-medium text-gray-600 bg-primary bg-opacity-10 hover:bg-primary hover:bg-opacity-20"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Attend Conference
             </a>
           </div>
         </div>
       </nav>
 
-      {/* Subtle visual hint for home page navigation */}
-      {isHomePage && !isNavVisible && (
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none">
-          <div className="mt-2">
-            <svg 
-              className="w-8 h-8 text-white/50 animate-bounce" 
-              fill="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path d="M7 10l5 5 5-5z"/>
-            </svg>
-          </div>
-        </div>
-      )}
+
     </>
   );
 }

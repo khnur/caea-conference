@@ -139,6 +139,21 @@ const Home: React.FC = () => {
             <p className="mt-8 text-lg text-gray-700 leading-relaxed">
               Hosted by Nazarbayev University from <span className="font-bold">August 29 to 31</span> as part of its <span className="font-bold">15th anniversary celebrations</span>, the event marks the first step toward launching the <span className="font-bold">Central Asian Economics Association (CAEA)</span>, a platform to support research coordination, funding, and future academic initiatives.
             </p>
+            
+            <div className="mt-12 p-6 bg-blue-50 rounded-lg border-l-4 border-primary">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Attendee Registration Now Open</h3>
+              <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                We are delighted to invite all interested participants to join us as attendees. Registration for attendees is now open! Please <a 
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary font-semibold hover:text-primary-dark underline transition-colors duration-200"
+                >register here</a> to reserve your spot at the conference.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                We look forward to welcoming you to Astana in August!
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -207,4 +222,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home; 
+export default Home;
