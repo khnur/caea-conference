@@ -73,24 +73,14 @@ function Navigation() {
                   </Link>
                 ))}
               </div>
-              <div className="hidden sm:flex ml-8 space-x-3">
-                <a
-                  href="https://sessionize.com/caec/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
-                >
-                  Register
-                </a>
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200"
-                >
-                  Attend
-                </a>
-              </div>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex ml-8 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-accent hover:bg-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200"
+              >
+                Register
+              </a>
               <div className="-mr-2 ml-4 flex items-center sm:hidden">
                 <button
                   onClick={toggleMenu}
@@ -140,22 +130,13 @@ function Navigation() {
               </Link>
             ))}
             <a
-              href="https://sessionize.com/caec/"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
               target="_blank"
               rel="noopener noreferrer"
               className="block pl-3 pr-4 py-2 border-l-4 border-accent text-base font-medium text-gray-600 bg-accent-light hover:bg-accent-lighter"
               onClick={() => setIsMenuOpen(false)}
             >
               Register
-            </a>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSe0IAUgE0bCeoTgzcmeqdxbd5xafDIc67fGBZ67jC5WduSMew/viewform?usp=header"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block pl-3 pr-4 py-2 border-l-4 border-primary text-base font-medium text-gray-600 bg-primary bg-opacity-10 hover:bg-primary hover:bg-opacity-20"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Attend Conference
             </a>
           </div>
         </div>
