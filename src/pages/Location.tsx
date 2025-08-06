@@ -206,18 +206,6 @@ const Location: React.FC = () => {
                 </a>
               </div>
 
-              {/* Jumbaktas */}
-              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                <h4 className="font-semibold text-gray-900 mb-2">Jumbaktas</h4>
-                <a 
-                  href="http://www.hotelkazzhol.kz/ru/astana/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-secondary"
-                >
-                  View Hotel Website
-                </a>
-              </div>
 
               {/* Rixos President */}
               <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
