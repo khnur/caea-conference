@@ -120,25 +120,196 @@ const Location: React.FC = () => {
         </div>
       </section>
 
-      {/* Travel Services */}
+      {/* Accommodation */}
       <section className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Travel Services</h2>
-          <p className="text-gray-700 mb-6">
-            Special rates are available from BS Travel for our conference participants. Contact information is provided below:
-          </p>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">«Business and Sport Travel» LLP</h3>
-            <div className="space-y-2 text-gray-700">
-              <p>
-                <span className="font-medium">Address:</span> 145 Kurmangazy Street, office 254, A05E8H3, Almaty city, Kazakhstan
-              </p>
-              <p>
-                <span className="font-medium">Phone:</span> +7 727 276 11 11
-              </p>
-              <p>
-                <span className="font-medium">Email:</span> <a href="mailto:traveltse@bstravel.kz" className="text-primary hover:text-secondary">traveltse@bstravel.kz</a>
-              </p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Accommodation</h2>
+          
+          {/* BS Travel Section */}
+          <div className="mb-8">
+            <p className="text-gray-700 mb-6">
+              BS Travel can help with accommodation arrangements for our conference participants. Contact information is provided below:
+            </p>
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">«Business and Sport Travel» LLP</h3>
+              <div className="space-y-2 text-gray-700">
+                <p>
+                  <span className="font-medium">Address:</span> 145 Kurmangazy Street, office 254, A05E8H3, Almaty city, Kazakhstan
+                </p>
+                <p>
+                  <span className="font-medium">Phone:</span> +7 727 276 11 11
+                </p>
+                <p>
+                  <span className="font-medium">Email:</span> <a href="mailto:traveltse@bstravel.kz" className="text-primary hover:text-secondary">traveltse@bstravel.kz</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Hotels Section */}
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Recommended Hotels in Astana</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              {/* Hampton by Hilton */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Hampton by Hilton Astana Triumphal Arch 3*</h4>
+                <a 
+                  href="http://hampton-inn-astana.hoteleastana.com/ru/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Asyr Hotel */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Asyr Hotel</h4>
+                <p className="text-sm text-gray-600 mb-2">
+                  For special rates, contact: <a href="mailto:qabanbay@asyr.kz" className="text-primary hover:text-secondary">qabanbay@asyr.kz</a> or call +7 701 231 6770
+                </p>
+                <a 
+                  href="https://asyrhotel.kz/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Hilton Astana */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Hilton Astana</h4>
+                <a 
+                  href="https://www.hilton.ru/hotels/hilton-astana/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Hilton Garden Inn */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Hilton Garden Inn Astana</h4>
+                <a 
+                  href="https://www.hilton.ru/hotels/hilton-garden-inn-astana/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Jumbaktas */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Jumbaktas</h4>
+                <a 
+                  href="http://www.hotelkazzhol.kz/ru/astana/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Rixos President */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Rixos President Astana</h4>
+                <a 
+                  href="https://rixos.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Saad Hotel */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Saad Hotel</h4>
+                <a 
+                  href="https://saad-hotel.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Sheraton Astana */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Sheraton Astana Hotel</h4>
+                <a 
+                  href="https://www.marriott.com/TSESI" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Wyndham Garden */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Wyndham Garden</h4>
+                <a 
+                  href="https://wyndhamgardenastana.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Park Inn by Radisson */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Park Inn by Radisson</h4>
+                <a 
+                  href="https://www.parkinn.ru/hotel-astana" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* IBIS Astana */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">IBIS Astana Hotel 3*</h4>
+                <a 
+                  href="https://ibis-astana-hotel.nochi.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
+              {/* Best Western Plus */}
+              <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <h4 className="font-semibold text-gray-900 mb-2">Best Western Plus Astana</h4>
+                <a 
+                  href="https://www.bestwestern.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  View Hotel Website
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
