@@ -81,7 +81,10 @@ const Location: React.FC = () => {
                 <p className="text-gray-700 mb-2">
                   Nazarbayev University is located in the modern administrative district of Astana, approximately 15 km from the city center.
                 </p>
-                <button className="text-primary hover:text-secondary font-medium">
+                <button 
+                  className="text-primary hover:text-secondary font-medium"
+                  onClick={() => window.open('https://maps.app.goo.gl/Ls7eVBwjK9Z1mzAP6', '_blank')}
+                >
                   View on Google Maps
                 </button>
               </div>
@@ -117,77 +120,25 @@ const Location: React.FC = () => {
         </div>
       </section>
 
-      {/* Accommodation */}
+      {/* Travel Services */}
       <section className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Accommodation</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Travel Services</h2>
           <p className="text-gray-700 mb-6">
-            We have arranged special rates for conference participants at the following hotels. Please mention the "CAE Conference 2025" when making your reservation to access these rates.
+            Special rates are available from BS Travel for our conference participants. Contact information is provided below:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Hilton Astana</h3>
-              <p className="text-gray-600 mb-1">⭐⭐⭐⭐⭐</p>
-              <p className="text-gray-700 mb-4">
-                Located in the Expo area, 5 minutes from Nazarbayev University. The conference dinner will be held here.
+          <div className="bg-gray-50 rounded-lg p-6">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">«Business and Sport Travel» LLP</h3>
+            <div className="space-y-2 text-gray-700">
+              <p>
+                <span className="font-medium">Address:</span> 145 Kurmangazy Street, office 254, A05E8H3, Almaty city, Kazakhstan
               </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-medium">Special Rate:</span> $150 per night
+              <p>
+                <span className="font-medium">Phone:</span> +7 727 276 11 11
               </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-medium">Distance to Venue:</span> 1.5 km
+              <p>
+                <span className="font-medium">Email:</span> <a href="mailto:traveltse@bstravel.kz" className="text-primary hover:text-secondary">traveltse@bstravel.kz</a>
               </p>
-              <button className="text-primary hover:text-secondary font-medium">
-                Book Accommodation
-              </button>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Sheraton Astana</h3>
-              <p className="text-gray-600 mb-1">⭐⭐⭐⭐</p>
-              <p className="text-gray-700 mb-4">
-                Located in the city center, with good transportation links to the university.
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-medium">Special Rate:</span> $120 per night
-              </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-medium">Distance to Venue:</span> 12 km
-              </p>
-              <button className="text-primary hover:text-secondary font-medium">
-                Book Accommodation
-              </button>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Holiday Inn Astana</h3>
-              <p className="text-gray-600 mb-1">⭐⭐⭐⭐</p>
-              <p className="text-gray-700 mb-4">
-                Comfortable hotel with good amenities, located in the business district.
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-medium">Special Rate:</span> $100 per night
-              </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-medium">Distance to Venue:</span> 10 km
-              </p>
-              <button className="text-primary hover:text-secondary font-medium">
-                Book Accommodation
-              </button>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">University Guest House</h3>
-              <p className="text-gray-600 mb-1">⭐⭐⭐</p>
-              <p className="text-gray-700 mb-4">
-                Basic but comfortable accommodation on the university campus. Limited availability.
-              </p>
-              <p className="text-gray-700 mb-1">
-                <span className="font-medium">Special Rate:</span> $60 per night
-              </p>
-              <p className="text-gray-700 mb-4">
-                <span className="font-medium">Distance to Venue:</span> On campus
-              </p>
-              <button className="text-primary hover:text-secondary font-medium">
-                Book Accommodation
-              </button>
             </div>
           </div>
         </div>
@@ -226,7 +177,7 @@ const Location: React.FC = () => {
               <ul className="text-gray-700 space-y-2">
                 <li>• Currency: Kazakhstani Tenge (KZT)</li>
                 <li>• Language: Kazakh and Russian</li>
-                <li>• Time Zone: GMT+6</li>
+                <li>• Time Zone: GMT+5</li>
                 <li>• Electricity: 220V, European plugs</li>
                 <li>• Emergency number: 112</li>
               </ul>
@@ -245,9 +196,7 @@ const Location: React.FC = () => {
           <p className="mb-4">
             The conference organizing committee can provide invitation letters to support your visa application. Please contact us at caec@nu.edu.kz with your details if you require an invitation letter.
           </p>
-          <button className="mt-2 bg-white text-primary hover:bg-gray-100 py-2 px-4 rounded-md font-medium">
-            Visa Requirements Information
-          </button>
+
         </div>
       </section>
     </div>
