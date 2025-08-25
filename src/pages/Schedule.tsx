@@ -1,25 +1,47 @@
 import React, { useState } from 'react';
-import { useSessionizeData, groupSessionsByDate, formatSessionTime, findRoomForSession, findSpeakersForSession } from '../services/sessionizeService';
+import { useGridSmartData, groupGridSmartSessionsByDate, formatSessionTime, GridSmartSession } from '../services/sessionizeService';
 import { exportScheduleToPDF } from '../services/pdfService';
 import TruncatedText from '../components/TruncatedText';
 
 const Schedule: React.FC = () => {
-  const { data, loading, error } = useSessionizeData();
+  const { data, loading, error } = useGridSmartData();
   const [activeDay, setActiveDay] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
 
   const handleDownloadProgram = async () => {
-    if (!data || !data.sessions) {
+    if (!data || data.length === 0) {
       alert('No schedule data available to export.');
       return;
     }
 
     setIsExporting(true);
     try {
+      // Convert GridSmart data to the format expected by PDF export
+      const allSessions = data.flatMap(day => 
+        day.rooms.flatMap(room => room.sessions)
+      );
+      
       await exportScheduleToPDF({
-        sessions: data.sessions,
-        speakers: data.speakers || [],
-        rooms: data.rooms || []
+        sessions: allSessions.map(session => ({
+          id: session.id,
+          title: session.title,
+          description: session.description || '',
+          startsAt: session.startsAt,
+          endsAt: session.endsAt,
+          isServiceSession: session.isServiceSession,
+          isPlenumSession: session.isPlenumSession,
+          speakers: session.speakers.map(speaker => speaker.id),
+          roomId: session.roomId,
+          status: session.status || '',
+          liveUrl: session.liveUrl,
+          recordingUrl: session.recordingUrl
+        })),
+        speakers: [],
+        rooms: data.flatMap(day => day.rooms).map(room => ({
+          id: room.id,
+          name: room.name,
+          sort: 0
+        }))
       });
     } catch (error) {
       console.error('Error exporting PDF:', error);
@@ -49,7 +71,7 @@ const Schedule: React.FC = () => {
     );
   }
 
-  if (!data || !data.sessions || data.sessions.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-gray-900">No schedule available</h2>
@@ -58,8 +80,8 @@ const Schedule: React.FC = () => {
     );
   }
 
-  // Group sessions by date
-  const groupedSessions = groupSessionsByDate(data.sessions);
+  // Group sessions by date using the new GridSmart data structure
+  const groupedSessions = groupGridSmartSessionsByDate(data);
   const days = Object.keys(groupedSessions);
   
   // Initialize active day if not set
@@ -119,10 +141,7 @@ const Schedule: React.FC = () => {
               </h2>
             </div>
             <ul className="divide-y divide-gray-200">
-              {currentDaySessions.map((session) => {
-                const room = data.rooms ? findRoomForSession(session, data.rooms) : null;
-                const speakers = data.speakers ? findSpeakersForSession(session, data.speakers) : [];
-                
+              {currentDaySessions.map((session: GridSmartSession) => {
                 const startTime = formatSessionTime(session.startsAt);
                 const endTime = formatSessionTime(session.endsAt);
                 
@@ -137,13 +156,13 @@ const Schedule: React.FC = () => {
                                 {startTime} - {endTime}
                               </p>
                               <p className="text-sm text-gray-500">
-                                {room ? room.name : 'Room TBA'}
+                                {session.room || 'Room TBA'}
                               </p>
                             </div>
                             <p className="mt-2 text-md font-medium text-gray-900">{session.title}</p>
-                            {speakers.length > 0 && (
+                            {session.speakers.length > 0 && (
                               <p className="mt-1 text-sm text-gray-500">
-                                Speakers: {speakers.map(speaker => speaker.fullName).join(', ')}
+                                Speakers: {session.speakers.map(speaker => speaker.name).join(', ')}
                               </p>
                             )}
                             {session.description && (

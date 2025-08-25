@@ -73,11 +73,17 @@ export const exportScheduleToPDF = async (data: PDFExportData) => {
       yPosition = margin;
     }
 
-    // Add day header
+    // Add day header with separator line
     pdf.setFontSize(18);
     pdf.setFont('helvetica', 'bold');
     pdf.text(day, margin, yPosition);
-    yPosition += 15;
+    yPosition += 8;
+    
+    // Add horizontal line under day header
+    pdf.setLineWidth(0.5);
+    pdf.setDrawColor(0, 0, 0); // Black color for day separator
+    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+    yPosition += 12;
 
     // Add sessions for this day
     for (const session of sessions) {
@@ -96,14 +102,14 @@ export const exportScheduleToPDF = async (data: PDFExportData) => {
 
       // Session time and room
       pdf.setFontSize(12);
-      pdf.setFont('helvetica', 'bold');
+      pdf.setFont('helvetica', 'normal');
       const timeText = `${startTime} - ${endTime}`;
       const roomText = room ? ` | ${room.name}` : ' | Room TBA';
       pdf.text(timeText + roomText, margin, yPosition);
-      yPosition += 8;
+      yPosition += 10;
 
       // Session title
-      pdf.setFontSize(14);
+      pdf.setFontSize(13);
       pdf.setFont('helvetica', 'bold');
       const titleLines = pdf.splitTextToSize(session.title, contentWidth);
       pdf.text(titleLines, margin, yPosition);
@@ -112,7 +118,7 @@ export const exportScheduleToPDF = async (data: PDFExportData) => {
       // Speakers
       if (speakers.length > 0) {
         pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'italic');
+        pdf.setFont('helvetica', 'normal');
         const speakersText = `Speakers: ${speakers.map(speaker => speaker.fullName).join(', ')}`;
         const speakerLines = pdf.splitTextToSize(speakersText, contentWidth);
         pdf.text(speakerLines, margin, yPosition);
@@ -121,7 +127,18 @@ export const exportScheduleToPDF = async (data: PDFExportData) => {
 
       // Session descriptions are omitted from PDF export for cleaner formatting
 
-      yPosition += 8; // Space between sessions
+      // Add subtle separator line between sessions (except for the last session)
+      const isLastSession = sessions.indexOf(session) === sessions.length - 1;
+      if (!isLastSession) {
+        yPosition += 8;
+        pdf.setLineWidth(0.2);
+        pdf.setDrawColor(200, 200, 200); // Light gray color
+        pdf.line(margin + 10, yPosition, pageWidth - margin - 10, yPosition);
+        pdf.setDrawColor(0, 0, 0); // Reset to black
+        yPosition += 8;
+      } else {
+        yPosition += 12; // Extra space for last session
+      }
     }
 
     yPosition += 10; // Extra space between days
