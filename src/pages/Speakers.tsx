@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSessionizeData, Speaker as SessionizeSpeaker } from '../services/sessionizeService';
+import TruncatedText from '../components/TruncatedText';
 
 interface SpeakerCardProps {
   speaker: SessionizeSpeaker;
@@ -74,7 +75,13 @@ const Speakers: React.FC = () => {
           <h3 className="text-lg font-bold text-gray-900">{speaker.fullName}</h3>
           <p className="text-sm text-primary mb-4">{speaker.tagLine || "Speaker"}</p>
           <div className="mt-3">
-            <p className="text-sm text-gray-700 leading-relaxed">{speaker.bio}</p>
+            <TruncatedText 
+              text={speaker.bio}
+              maxLength={150}
+              className="text-sm text-gray-700 leading-relaxed"
+              showMoreText="Read more"
+              showLessText="Read less"
+            />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import { Session, Speaker, Room, groupSessionsByDate, formatSessionTime, findRoomForSession, findSpeakersForSession } from './sessionizeService';
+import { cleanDescriptionText } from '../utils/textUtils';
 import logoImg from '../assets/logo/nu_15_years_logo.png';
 
 export interface PDFExportData {
@@ -111,29 +112,14 @@ export const exportScheduleToPDF = async (data: PDFExportData) => {
       // Speakers
       if (speakers.length > 0) {
         pdf.setFontSize(10);
-        pdf.setFont('helvetica', 'normal');
+        pdf.setFont('helvetica', 'italic');
         const speakersText = `Speakers: ${speakers.map(speaker => speaker.fullName).join(', ')}`;
         const speakerLines = pdf.splitTextToSize(speakersText, contentWidth);
         pdf.text(speakerLines, margin, yPosition);
         yPosition += speakerLines.length * 5;
       }
 
-      // Session description
-      if (session.description) {
-        pdf.setFontSize(9);
-        pdf.setFont('helvetica', 'normal');
-        const descriptionLines = pdf.splitTextToSize(session.description, contentWidth);
-        // Limit description to prevent overly long content
-        const maxDescriptionLines = 3;
-        const limitedLines = descriptionLines.slice(0, maxDescriptionLines);
-        pdf.text(limitedLines, margin, yPosition);
-        yPosition += limitedLines.length * 4;
-        
-        if (descriptionLines.length > maxDescriptionLines) {
-          pdf.text('...', margin, yPosition);
-          yPosition += 4;
-        }
-      }
+      // Session descriptions are omitted from PDF export for cleaner formatting
 
       yPosition += 8; // Space between sessions
     }

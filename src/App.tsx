@@ -21,7 +21,7 @@ function Navigation() {
   const navItems = [
     { path: '/about', label: 'About' },
     { path: '/call-for-papers', label: 'Call for Papers' },
-    // { path: '/schedule', label: 'Program' },
+    { path: '/schedule', label: 'Program' },
     // { path: '/speakers', label: 'Speakers' },
     { path: '/location', label: 'Venue' }
   ];

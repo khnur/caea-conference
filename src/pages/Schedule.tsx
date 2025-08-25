@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSessionizeData, groupSessionsByDate, formatSessionTime, findRoomForSession, findSpeakersForSession } from '../services/sessionizeService';
 import { exportScheduleToPDF } from '../services/pdfService';
+import TruncatedText from '../components/TruncatedText';
 
 const Schedule: React.FC = () => {
   const { data, loading, error } = useSessionizeData();
@@ -146,7 +147,13 @@ const Schedule: React.FC = () => {
                               </p>
                             )}
                             {session.description && (
-                              <p className="mt-1 text-sm text-gray-500">{session.description}</p>
+                              <TruncatedText 
+                                text={session.description}
+                                maxLength={200}
+                                className="mt-1 text-sm text-gray-500"
+                                showMoreText="Show more"
+                                showLessText="Show less"
+                              />
                             )}
                           </div>
                         </div>
