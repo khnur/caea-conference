@@ -6,6 +6,12 @@ import astanaImage1 from '../assets/images/Photo-of-Astana-1.webp';
 // Import the Sessionize service
 import { useSessionizeData } from '../services/sessionizeService';
 
+// Speaker website mapping based on their IDs
+const SPEAKER_WEBSITES: Record<string, string> = {
+  'ace3fcb8-4e39-465b-a699-066c14754368': 'https://profiles.imperial.ac.uk/i.rustam', // Rustam Ibragimov
+  '1b14f719-1767-4cab-9e10-958e99ad8961': 'https://cs3.mit.edu/about-us/personnel/paltsev-sergey', // Sergey Paltsev
+};
+
 const Home: React.FC = () => {
   const { data, loading } = useSessionizeData();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -163,32 +169,61 @@ const Home: React.FC = () => {
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
               </div>
             ) : featuredSpeakers.length > 0 ? (
-              featuredSpeakers.map((speaker) => (
-                <div key={speaker.id} className="flex flex-col items-center">
-                  <div className="h-40 w-40 rounded-full bg-primary overflow-hidden mb-6">
-                    {speaker.profilePicture ? (
-                      <img 
-                        src={speaker.profilePicture} 
-                        alt={speaker.fullName} 
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-full w-full flex items-center justify-center">
-                        <span className="text-4xl font-bold text-white">
-                          {getInitials(speaker.fullName)}
-                        </span>
-                      </div>
-                    )}
+              featuredSpeakers.map((speaker) => {
+                const speakerWebsite = SPEAKER_WEBSITES[speaker.id];
+                
+                const handleSpeakerClick = () => {
+                  if (speakerWebsite) {
+                    window.open(speakerWebsite, '_blank', 'noopener,noreferrer');
+                  }
+                };
+
+                return (
+                  <div 
+                    key={speaker.id} 
+                    className={`flex flex-col items-center ${
+                      speakerWebsite ? 'cursor-pointer hover:scale-105 transition-transform duration-200' : ''
+                    }`}
+                    onClick={speakerWebsite ? handleSpeakerClick : undefined}
+                    role={speakerWebsite ? 'button' : undefined}
+                    tabIndex={speakerWebsite ? 0 : undefined}
+                    onKeyDown={speakerWebsite ? (e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleSpeakerClick();
+                      }
+                    } : undefined}
+                  >
+                    <div className="h-40 w-40 rounded-full bg-primary overflow-hidden mb-6">
+                      {speaker.profilePicture ? (
+                        <img 
+                          src={speaker.profilePicture} 
+                          alt={speaker.fullName} 
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full flex items-center justify-center">
+                          <span className="text-4xl font-bold text-white">
+                            {getInitials(speaker.fullName)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-center">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{speaker.fullName}</h3>
+                      <p className="text-sm text-gray-500 mb-3">{speaker.tagLine || "Speaker"}</p>
+                      <p className="text-base text-gray-700 leading-relaxed line-clamp-2">
+                        {speaker.bio}
+                      </p>
+                      {speakerWebsite && (
+                        <p className="text-xs text-gray-500 mt-2">
+                          Click to visit profile
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{speaker.fullName}</h3>
-                    <p className="text-sm text-gray-500 mb-3">{speaker.tagLine || "Speaker"}</p>
-                    <p className="text-base text-gray-700 leading-relaxed line-clamp-2">
-                      {speaker.bio}
-                    </p>
-                  </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <div className="col-span-3 text-center py-12">
                 <p className="text-gray-500 text-lg">Speaker information coming soon</p>

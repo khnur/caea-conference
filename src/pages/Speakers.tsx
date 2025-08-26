@@ -2,6 +2,12 @@ import React from 'react';
 import { useSessionizeData, Speaker as SessionizeSpeaker } from '../services/sessionizeService';
 import TruncatedText from '../components/TruncatedText';
 
+// Speaker website mapping based on their IDs
+const SPEAKER_WEBSITES: Record<string, string> = {
+  'ace3fcb8-4e39-465b-a699-066c14754368': 'https://profiles.imperial.ac.uk/i.rustam', // Rustam Ibragimov
+  '1b14f719-1767-4cab-9e10-958e99ad8961': 'https://cs3.mit.edu/about-us/personnel/paltsev-sergey', // Sergey Paltsev
+};
+
 interface SpeakerCardProps {
   speaker: SessionizeSpeaker;
 }
@@ -54,17 +60,27 @@ const Speakers: React.FC = () => {
         .toUpperCase();
     };
 
-    return (
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="aspect-w-3 aspect-h-2">
+    // Check if this speaker has a website URL
+    const speakerWebsite = SPEAKER_WEBSITES[speaker.id];
+    
+    // Handle click to open website
+    const handleCardClick = () => {
+      if (speakerWebsite) {
+        window.open(speakerWebsite, '_blank', 'noopener,noreferrer');
+      }
+    };
+
+    const cardContent = (
+      <>
+        <div className="h-48 w-full bg-gray-50 flex items-center justify-center overflow-hidden">
           {speaker.profilePicture ? (
             <img 
-              className="h-48 w-full object-cover" 
+              className="h-full w-full object-contain" 
               src={speaker.profilePicture} 
               alt={speaker.fullName} 
             />
           ) : (
-            <div className="h-48 w-full bg-primary flex items-center justify-center">
+            <div className="h-full w-full bg-primary flex items-center justify-center">
               <span className="text-4xl font-bold text-white">
                 {getInitials(speaker.fullName)}
               </span>
@@ -83,7 +99,31 @@ const Speakers: React.FC = () => {
               showLessText="Read less"
             />
           </div>
+          {speakerWebsite && (
+            <div className="mt-4 text-xs text-gray-500">
+              Click to visit profile
+            </div>
+          )}
         </div>
+      </>
+    );
+
+    return (
+      <div 
+        className={`bg-white rounded-lg shadow-md overflow-hidden ${
+          speakerWebsite ? 'cursor-pointer hover:shadow-lg transition-shadow duration-200' : ''
+        }`}
+        onClick={speakerWebsite ? handleCardClick : undefined}
+        role={speakerWebsite ? 'button' : undefined}
+        tabIndex={speakerWebsite ? 0 : undefined}
+        onKeyDown={speakerWebsite ? (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleCardClick();
+          }
+        } : undefined}
+      >
+        {cardContent}
       </div>
     );
   };
