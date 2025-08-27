@@ -8,14 +8,8 @@ const Schedule: React.FC = () => {
 
 
   const handleDownloadPDF = () => {
-    // Download the static PDF file
-    const link = document.createElement('a');
-    link.href = '/CAEC2025Program_v2.pdf';
-    link.download = 'CAEC2025Program_v2.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open the Google Drive link in a new tab
+    window.open('https://drive.google.com/file/d/1EgyBvRma_rqMMdZzRY2_V2OMKAKIjTPy/view?usp=sharing', '_blank');
   };
 
   // Handle loading and error states
