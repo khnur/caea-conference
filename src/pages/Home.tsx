@@ -148,7 +148,7 @@ const Home: React.FC = () => {
             
             {/* Download Program Section */}
             <div className="mt-12 bg-gray-50 rounded-lg p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Program Downloads</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">The full program is available here</h3>
               <p className="text-gray-600 mb-4">
                 The conference program is subject to change. Please check back regularly for updates.
               </p>
