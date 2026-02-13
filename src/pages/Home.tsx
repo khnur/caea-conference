@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 // Import available images statically
 import astanaImage from '../assets/images/Photo-of-Astana.jpg';
 import astanaImage1 from '../assets/images/Photo-of-Astana-1.webp';
@@ -15,7 +14,7 @@ const SPEAKER_WEBSITES: Record<string, string> = {
 const Home: React.FC = () => {
   const { data, loading } = useSessionizeData();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [, setIsTransitioning] = useState(false);
   
   // Define available images array
   const availableImages = [astanaImage, astanaImage1];

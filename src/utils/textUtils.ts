@@ -15,7 +15,7 @@ export const cleanDescriptionText = (text: string): string => {
   let cleanedText = text;
 
   // Remove strange prefixes like "+P", "+", "★", etc. - be very aggressive
-  cleanedText = cleanedText.replace(/[\+\*★☆•]\s*[A-Z]?\s*/g, '');
+  cleanedText = cleanedText.replace(/[+*★☆•]\s*[A-Z]?\s*/g, '');
   
   // Remove +P patterns anywhere in the text with various spacing
   cleanedText = cleanedText.replace(/\s*\+P\s*/g, ' ');

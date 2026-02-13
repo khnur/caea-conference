@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import nazarbayevUniversityWebp from '../assets/images/nazarbayev_university_optimized.webp';
 import nazarbayevUniversityJpg from '../assets/images/nazarbayev_university_optimized.jpg';
-import astanaPhotoJpg from '../assets/images/Photo-of-Astana.jpg';
-
 const Location: React.FC = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);

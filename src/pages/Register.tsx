@@ -310,6 +310,7 @@ Registration Date: ${new Date().toLocaleString()}
       localStorage.removeItem('caaeRegistrationForm');
       localStorage.removeItem('caaeEmailSending');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   // Save form data to localStorage when it changes
