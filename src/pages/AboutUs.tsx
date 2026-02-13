@@ -52,6 +52,7 @@ const AboutUs: React.FC = () => {
                   <p>Alexis Belianin (Almaty Management University)</p>
                   <p>Rajarshi Bhowal</p>
                   <p>Julio Dávila</p>
+                  <p>Ali Elminejad</p>
                   <p>Mehmet Demir</p>
                   <p>Zhanna Kapsalyamova</p>
                   <p>Karlygash Kuralbayeva (King's College London)</p>
